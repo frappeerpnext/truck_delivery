@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include truck_delivery *.css
+recursive-include truck_delivery *.csv
+recursive-include truck_delivery *.html
+recursive-include truck_delivery *.ico
+recursive-include truck_delivery *.js
+recursive-include truck_delivery *.json
+recursive-include truck_delivery *.md
+recursive-include truck_delivery *.png
+recursive-include truck_delivery *.py
+recursive-include truck_delivery *.svg
+recursive-include truck_delivery *.txt
+recursive-exclude truck_delivery *.pyc
