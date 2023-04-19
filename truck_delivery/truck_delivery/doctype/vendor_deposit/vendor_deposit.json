@@ -9,6 +9,7 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "transaction_type",
   "vendor",
   "vendor_name",
   "phone_number",
@@ -27,6 +28,7 @@
   {
    "fieldname": "vendor",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Vendor",
    "options": "Vendor"
   },
@@ -34,11 +36,13 @@
    "fetch_from": "vendor.customer_name",
    "fieldname": "vendor_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Vendor Name"
   },
   {
    "fieldname": "amount",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Amount"
   },
   {
@@ -60,18 +64,29 @@
    "fetch_if_empty": 1,
    "fieldname": "phone_number",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Phone Number"
   },
   {
    "fieldname": "deposit_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Deposit Date"
+  },
+  {
+   "default": "Deposit",
+   "fieldname": "transaction_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Transaction Type",
+   "options": "Deposit\nRebate"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-15 14:49:53.353237",
+ "modified": "2023-04-18 21:13:57.893550",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Vendor Deposit",

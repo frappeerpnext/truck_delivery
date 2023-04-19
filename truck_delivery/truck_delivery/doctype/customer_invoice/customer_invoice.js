@@ -4,7 +4,6 @@
 frappe.ui.form.on('Customer Invoice', {
     
     onload: function (frm) {
-       
         setTimeout(function () {
            
             if (frm.doc.purchase_order) {
@@ -24,6 +23,7 @@ frappe.ui.form.on('Customer Invoice', {
                             row.quantity = r.remaining_quantity ;
                             row.price = r.price;
                             row.total_amount = r.price * r.remaining_quantity;
+                            row.purchase_quantity = r.quantity;
                         }
                     });
                     frm.refresh_field('products');

@@ -21,7 +21,11 @@
   "note",
   "amended_from",
   "cost_detail_section",
-  "costs"
+  "costs",
+  "section_break_15",
+  "min_cost",
+  "column_break_17",
+  "max_cost"
  ],
  "fields": [
   {
@@ -110,12 +114,32 @@
    "fieldname": "unit",
    "fieldtype": "Data",
    "label": "Unit"
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "min_cost",
+   "fieldtype": "Currency",
+   "label": "Min Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "max_cost",
+   "fieldtype": "Currency",
+   "label": "Max Cost",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-16 16:29:11.752786",
+ "modified": "2023-04-18 21:04:09.876102",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Transportation Cost",

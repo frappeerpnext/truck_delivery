@@ -95,7 +95,7 @@
    "link_fieldname": "vendor"
   }
  ],
- "modified": "2023-04-15 17:23:46.443298",
+ "modified": "2023-04-18 20:43:41.122537",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Vendor",
@@ -127,6 +127,7 @@
    "write": 1
   }
  ],
+ "search_fields": "customer_name, phone_number",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

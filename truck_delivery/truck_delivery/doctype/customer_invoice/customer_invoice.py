@@ -4,18 +4,23 @@
 from py_linq import Enumerable
 import frappe
 from frappe.model.document import Document
+import copy
+
+
 
 class CustomerInvoice(Document):
 	def validate(self):
 		for d in self.products:
-	
+			
 			d.total_amount = (d.quantity or 1) * (d.price or 0)
-			calculate_product_cost(self,d)
+			d.transportation_cost = calculate_product_cost(self,d) or 0
+			d.total_transportation_cost = (d.transportation_cost or 0 ) * d.quantity
 
 		self.total_quantity = Enumerable(self.products).sum(lambda x: x.quantity or 0)
 		self.total_amount =  Enumerable(self.products).sum(lambda x: x.total_amount or 0)
+		
 		#calculate transaptation cost
-
+		self.total_transportation_cost =  Enumerable(self.products).sum(lambda x: x.total_transportation_cost or 0)
 
 	def before_submit(self):
 		for d in self.products:
@@ -25,9 +30,36 @@ class CustomerInvoice(Document):
 	def on_submit(self):
 		update_quantity_to_po(self)
 
+		doc = frappe.get_doc(
+		{
+			"name": self.name,
+			"document_number": self.name,
+			"vendor": self.vendor,
+			"vendor_name": self.vendor_name,
+			"phone_number": self.phone_number,
+			"posting_date": self.posting_date,
+			"district": self.district,
+			"truck": self.truck,
+			"driver": self.driver,
+			"driver_name": self.driver_name,
+			"driver_number": self.driver_number,
+			"customer": self.customer,
+			"customer_name": self.customer_name,
+			"customer_phone_number": self.customer_phone_number,
+			"customer_province": self.customer_province,
+			"customer_district": self.customer_district,
+			"doctype": "Transportation Billing",
+		}
+		)
+		doc.insert()
+
+
+
 	def on_cancel(self):
 	
 		update_quantity_to_po(self)
+		frappe.db.sql("delete from `tabTransportation Billing` where name='{}'".format(self.name))
+
 
 def update_quantity_to_po(self):
 	for d in self.products:
@@ -66,6 +98,21 @@ def validate_quaitity_with_po(row):
 
 def calculate_product_cost(self,row):
 	#get cost from range
+
 	sql = "select cost from `tabTransportation Quantity Cost` where truck='{0}' and product='{1}' and district='{2}' and '{3}' between start_date and end_date and {4} between min_quantity and max_quantity and docstatus=1"
-	sql = sql.format(self.truck, row.product,self.district,self.create_date, row.quantity)
-	frappe.throw(sql)
+	
+	sql = sql.format(self.truck, row.product_code,self.district,self.posting_date, row.quantity)
+	data = frappe.db.sql(sql,as_dict=1)
+	if data:
+		return data[0]["cost"]
+	else:
+		#get cost from transportation cost
+		sql = "select cost from `tabTransportation Cost` where truck='{0}' and product='{1}' and district='{2}' and '{3}' between start_date and end_date and docstatus=1"
+	
+		sql = sql.format(self.truck, row.product_code,self.district,self.posting_date)
+		data = frappe.db.sql(sql,as_dict=1)
+		if data:
+			return data[0]["cost"]
+		else:
+			return 0
+	

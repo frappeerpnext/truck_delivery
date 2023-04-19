@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Home</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor Deposit\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Request for Quotation\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Order\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Invoice\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Transportation Cost\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Recent RFQ\",\"col\":6}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"RFQ Remaining Qty\",\"col\":6}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}}]",
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Home</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor Deposit\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Request for Quotation\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Order\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Invoice\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Transportation Billing\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Transportation Cost\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Recent RFQ\",\"col\":6}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"RFQ Remaining Qty\",\"col\":6}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}}]",
  "creation": "2023-04-15 14:27:11.036781",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -99,7 +99,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-04-16 15:55:56.326718",
+ "modified": "2023-04-18 20:49:46.569678",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Home",
@@ -112,7 +112,7 @@
    "label": "RFQ Remaining Qty",
    "quick_list_filter": "{\"total_remaining_quantity\":[\"!=\",0],\"docstatus\":[\"=\",\"1\"]}",
    "sub_title_fields": "vendor_name,total_remaining_quantity,remaining_unit_text",
-   "total_amount_field": "total_amount"
+   "total_amount_field": ""
   },
   {
    "document_type": "Request for Quotation",
@@ -175,6 +175,13 @@
    "label": "Purchase Order",
    "link_to": "Purchase Order",
    "stats_filter": "{\"docstatus\":[\"=\",\"1\"],\"total_remaining_quantity\":[\"!=\",0]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Transportation Billing",
+   "link_to": "Transportation Billing",
    "type": "DocType"
   }
  ],

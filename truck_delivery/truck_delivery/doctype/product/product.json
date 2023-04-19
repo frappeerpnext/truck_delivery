@@ -58,8 +58,14 @@
  ],
  "image_field": "photo",
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2023-04-15 17:47:15.914422",
+ "links": [
+  {
+   "group": "Transportation Cost",
+   "link_doctype": "Transportation Cost",
+   "link_fieldname": "product"
+  }
+ ],
+ "modified": "2023-04-18 19:24:44.853273",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Product",

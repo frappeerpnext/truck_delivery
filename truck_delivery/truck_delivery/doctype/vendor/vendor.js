@@ -17,7 +17,7 @@ frappe.ui.form.on("Vendor", {
 						frm.dashboard.add_indicator(__("Purchased: {0}",[format_currency(d.total_purchase)]) ,"blue");
 						frm.dashboard.add_indicator(__("Outstanding: {0}",[format_currency(d.balance)]) ,"green");
 						frm.dashboard.add_indicator(__("Forcasting Balance: {0}",[format_currency(d.forcasting)]) ,"orange");
-						frm.dashboard.add_indicator(__("RFD: {0}",[format_currency(d.forcasting - d.balance )]) ,"red");
+						if (d.forcasting - d.balance> 0) frm.dashboard.add_indicator(__("RFD: {0}",[format_currency(d.forcasting - d.balance )]) ,"red");
 
 					}
 					

@@ -15,7 +15,15 @@
   "province",
   "district",
   "area",
-  "photo"
+  "photo",
+  "purchase_product_history_tab",
+  "start_date",
+  "column_break_11",
+  "end_date",
+  "column_break_13",
+  "filter_product",
+  "section_break_13",
+  "product_history"
  ],
  "fields": [
   {
@@ -68,12 +76,52 @@
    "fieldtype": "Link",
    "label": "Province",
    "options": "Province"
+  },
+  {
+   "fieldname": "purchase_product_history_tab",
+   "fieldtype": "Tab Break",
+   "label": "Purchase Product History"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Customer Purchase Product History",
+   "fieldname": "product_history",
+   "fieldtype": "HTML",
+   "label": "Product History",
+   "options": "<div id=\"customer_purchase_product_history\"></div>"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "filter_product",
+   "fieldtype": "Link",
+   "label": "Product",
+   "options": "Product"
   }
  ],
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-15 16:13:07.817377",
+ "modified": "2023-04-18 21:41:54.765311",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer",
