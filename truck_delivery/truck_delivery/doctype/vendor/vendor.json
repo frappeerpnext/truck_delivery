@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2023-04-15 14:33:46.556119",
@@ -95,7 +96,8 @@
    "link_fieldname": "vendor"
   }
  ],
- "modified": "2023-04-18 20:43:41.122537",
+ "make_attachments_public": 1,
+ "modified": "2023-04-21 10:12:32.347122",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Vendor",

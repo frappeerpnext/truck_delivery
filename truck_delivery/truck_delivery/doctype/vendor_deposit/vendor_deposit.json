@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2023-04-15 14:38:26.228167",
@@ -86,7 +87,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-18 21:13:57.893550",
+ "modified": "2023-04-21 10:12:04.569166",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Vendor Deposit",

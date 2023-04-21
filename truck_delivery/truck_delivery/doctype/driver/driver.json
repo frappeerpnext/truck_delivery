@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2023-04-15 14:55:38.644929",
@@ -57,7 +58,7 @@
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-15 14:55:38.644929",
+ "modified": "2023-04-21 10:18:54.544596",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Driver",

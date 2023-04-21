@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2023-04-16 13:39:01.728613",
@@ -246,7 +247,7 @@
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2023-04-18 20:54:05.201758",
+ "modified": "2023-04-21 10:12:23.348483",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Invoice",

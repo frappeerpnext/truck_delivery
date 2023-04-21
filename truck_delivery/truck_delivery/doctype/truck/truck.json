@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:plate_number",
  "creation": "2023-04-15 14:59:05.987727",
@@ -55,7 +56,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-15 15:01:53.463732",
+ "modified": "2023-04-21 10:13:17.105570",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Truck",

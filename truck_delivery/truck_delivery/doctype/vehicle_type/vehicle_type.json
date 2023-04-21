@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:vehicle_type",
  "creation": "2023-04-15 14:58:12.908616",
@@ -28,7 +29,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-20 18:57:53.133007",
+ "modified": "2023-04-21 10:11:41.163480",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Vehicle Type",

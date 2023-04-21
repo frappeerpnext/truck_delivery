@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:product_category",
  "creation": "2023-04-15 14:31:38.434697",
@@ -30,7 +31,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-15 14:31:38.434697",
+ "modified": "2023-04-21 10:19:09.139819",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Product Category",

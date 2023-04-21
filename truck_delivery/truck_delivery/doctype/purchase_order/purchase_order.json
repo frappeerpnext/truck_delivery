@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2023-04-15 15:46:27.934948",
@@ -264,7 +265,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2023-04-16 16:38:39.787633",
+ "modified": "2023-04-21 10:12:58.638215",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Purchase Order",
