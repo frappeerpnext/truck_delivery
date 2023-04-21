@@ -87,7 +87,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-21 10:12:04.569166",
+ "modified": "2023-04-21 10:27:33.349531",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Vendor Deposit",
@@ -107,15 +107,19 @@
    "write": 1
   },
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
    "export": 1,
+   "import": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "Purchase Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
