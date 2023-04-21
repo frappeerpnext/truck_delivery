@@ -67,7 +67,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2023-04-21 10:25:18.915912",
+ "modified": "2023-04-21 10:30:40.416275",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Product",
@@ -100,6 +100,7 @@
    "write": 1
   }
  ],
+ "search_fields": "product_name",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
