@@ -10,14 +10,20 @@
   "product_code",
   "product_name",
   "unit",
+  "purchase_quantity",
+  "column_break_5",
   "quantity",
   "price",
   "total_amount",
-  "note",
-  "purchase_order_product_id",
+  "cost_section",
   "transportation_cost",
-  "purchase_quantity",
-  "total_transportation_cost"
+  "adjust_cost",
+  "column_break_12",
+  "total_transportation_cost",
+  "transportation_cost_backup",
+  "section_break_14",
+  "note",
+  "purchase_order_product_id"
  ],
  "fields": [
   {
@@ -64,6 +70,7 @@
   {
    "fieldname": "purchase_order_product_id",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Purchase Order Product ID"
   },
   {
@@ -76,7 +83,8 @@
   {
    "fieldname": "transportation_cost",
    "fieldtype": "Currency",
-   "label": "Transportation Cost"
+   "label": "Transportation Cost",
+   "read_only_depends_on": "eval:doc.adjust_cost == 0"
   },
   {
    "fieldname": "purchase_quantity",
@@ -88,12 +96,40 @@
    "fieldname": "total_transportation_cost",
    "fieldtype": "Currency",
    "label": "Total Transportation Cost"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cost_section",
+   "fieldtype": "Section Break",
+   "label": "Cost"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "transportation_cost_backup",
+   "fieldtype": "Currency",
+   "label": "Transportation Cost Backup"
+  },
+  {
+   "default": "0",
+   "fieldname": "adjust_cost",
+   "fieldtype": "Check",
+   "label": "Adjust Cost"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-18 19:45:26.380166",
+ "modified": "2023-04-21 19:25:56.571155",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Invoice Product",

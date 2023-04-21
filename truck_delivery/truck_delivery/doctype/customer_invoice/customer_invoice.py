@@ -13,7 +13,10 @@ class CustomerInvoice(Document):
 		for d in self.products:
 			
 			d.total_amount = (d.quantity or 1) * (d.price or 0)
-			d.transportation_cost = calculate_product_cost(self,d) or 0
+			d.transportation_cost_backup = calculate_product_cost(self,d) or 0
+			if d.adjust_cost ==0:
+				d.transportation_cost = d.transportation_cost_backup
+
 			d.total_transportation_cost = (d.transportation_cost or 0 ) * d.quantity
 
 		self.total_quantity = Enumerable(self.products).sum(lambda x: x.quantity or 0)
