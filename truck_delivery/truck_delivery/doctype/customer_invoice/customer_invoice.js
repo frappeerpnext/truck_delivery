@@ -2,7 +2,23 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Customer Invoice', {
-    
+    refresh: function (frm) {
+        if(!frm.doc.__islocal){
+		 
+		 
+					 const d = frm.doc;
+						frm.dashboard.add_indicator(__("Total Quantity: {0}",[d.total_quantity]) ,"blue");
+						frm.dashboard.add_indicator(__("Total Amount: {0}",[format_currency(frm.doc.total_amount)]) ,"blue");
+						frm.dashboard.add_indicator(__("Paid: {0}",[format_currency(frm.doc.total_paid)]) ,"green");
+						frm.dashboard.add_indicator(__("Balance: {0}",[format_currency(frm.doc.balance)]) ,"red");
+					 
+
+					}
+					
+			 
+			
+		 
+    },
     onload: function (frm) {
         setTimeout(function () {
            
