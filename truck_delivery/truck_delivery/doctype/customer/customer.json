@@ -23,6 +23,8 @@
   "end_date",
   "column_break_13",
   "filter_product",
+  "column_break_15",
+  "view_report",
   "section_break_13",
   "product_history"
  ],
@@ -117,12 +119,21 @@
    "fieldtype": "Link",
    "label": "Product",
    "options": "Product"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "view_report",
+   "fieldtype": "Button",
+   "label": "View Report"
   }
  ],
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-21 10:26:22.599928",
+ "modified": "2023-04-23 15:07:17.729710",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer",
