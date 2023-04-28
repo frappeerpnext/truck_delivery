@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Home</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor Deposit\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Request for Quotation\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Order\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Invoice\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Transportation Billing\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Transportation Cost\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Recent RFQ\",\"col\":6}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"RFQ Remaining Qty\",\"col\":6}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}}]",
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Home</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor Deposit\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Request for Quotation\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Order\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Invoice\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Payment\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Transportation Billing\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Transport Payment\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Recent RFQ\",\"col\":6}},{\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"RFQ Remaining Qty\",\"col\":6}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Cost Setup\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
  "creation": "2023-04-15 14:27:11.036781",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -107,9 +107,45 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Cost Setup",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tranportation Cost",
+   "link_count": 0,
+   "link_to": "Transportation Cost",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Transportation Statement",
+   "link_count": 0,
+   "link_to": "Transportation Statement",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2023-04-23 14:04:45.655339",
+ "modified": "2023-04-28 20:43:05.572152",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Home",
@@ -145,29 +181,33 @@
   {
    "color": "Grey",
    "doc_view": "List",
+   "label": "Transportation Billing",
+   "link_to": "Transportation Billing",
+   "stats_filter": "{\"posting_date\":[\"Timespan\",\"this month\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
    "label": "Vendor Deposit",
    "link_to": "Vendor Deposit",
+   "stats_filter": "{\"deposit_date\":[\"Timespan\",\"this month\"]}",
    "type": "DocType"
   },
   {
    "color": "Grey",
    "doc_view": "List",
-   "label": "Payment",
+   "label": "Customer Payment",
    "link_to": "Payments",
+   "stats_filter": "{\"create_date\":[\"Timespan\",\"this month\"]}",
    "type": "DocType"
   },
   {
    "color": "Grey",
    "doc_view": "List",
-   "label": "Transportation Cost",
-   "link_to": "Transportation Cost",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Customer Invoice",
-   "link_to": "Customer Invoice",
+   "label": "Request for Quotation",
+   "link_to": "Request for Quotation",
+   "stats_filter": "{\"posting_date\":[\"Timespan\",\"this month\"]}",
    "type": "DocType"
   },
   {
@@ -181,8 +221,17 @@
   {
    "color": "Grey",
    "doc_view": "List",
-   "label": "Request for Quotation",
-   "link_to": "Request for Quotation",
+   "label": "Customer Invoice",
+   "link_to": "Customer Invoice",
+   "stats_filter": "{\"posting_date\":[\"Timespan\",\"this month\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Transport Payment",
+   "link_to": "Transportation Payment",
+   "stats_filter": "{\"create_date\":[\"Timespan\",\"this month\"]}",
    "type": "DocType"
   },
   {
@@ -192,13 +241,6 @@
    "label": "Purchase Order",
    "link_to": "Purchase Order",
    "stats_filter": "{\"docstatus\":[\"=\",\"1\"],\"total_remaining_quantity\":[\"!=\",0]}",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Transportation Billing",
-   "link_to": "Transportation Billing",
    "type": "DocType"
   }
  ],

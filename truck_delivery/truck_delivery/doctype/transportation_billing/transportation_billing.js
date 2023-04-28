@@ -3,7 +3,18 @@
 
 frappe.ui.form.on("Transportation Billing", {
 	refresh(frm) {
-    
+        if(!frm.doc.__islocal){
+		 
+		 
+            const d = frm.doc;
+               
+               frm.dashboard.add_indicator(__("Total Amount: {0}",[format_currency(frm.doc.total_cost)]) ,"blue");
+               frm.dashboard.add_indicator(__("Paid: {0}",[format_currency(frm.doc.total_payment)]) ,"green");
+               frm.dashboard.add_indicator(__("Balance: {0}",[format_currency(frm.doc.balance)]) ,"red");
+            
+
+           }
+           
         if(!frm.doc.__islocal){
             var iframe = document.createElement('iframe');
             iframe.height="1122";

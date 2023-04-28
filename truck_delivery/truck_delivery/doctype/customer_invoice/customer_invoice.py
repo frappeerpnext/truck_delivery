@@ -21,6 +21,7 @@ class CustomerInvoice(Document):
 
 		self.total_quantity = Enumerable(self.products).sum(lambda x: x.quantity or 0)
 		self.total_amount =  Enumerable(self.products).sum(lambda x: x.total_amount or 0)
+		self.balance = self.total_amount - (self.total_paid or 0)
 		
 		#calculate transaptation cost
 		self.total_transportation_cost =  Enumerable(self.products).sum(lambda x: x.total_transportation_cost or 0)
@@ -52,6 +53,9 @@ class CustomerInvoice(Document):
 			"customer_province": self.customer_province,
 			"customer_district": self.customer_district,
 			"doctype": "Transportation Billing",
+			"total_cost": self.total_transportation_cost,
+			"total_payment":0,
+			"balance": self.total_transportation_cost
 		}
 		)
 		doc.insert()
@@ -103,9 +107,10 @@ def calculate_product_cost(self,row):
 	#get cost from range
 
 	sql = "select cost from `tabTransportation Quantity Cost` where truck='{0}' and product='{1}' and district='{2}' and '{3}' between start_date and end_date and {4} between min_quantity and max_quantity and docstatus=1"
-	
+ 
 	sql = sql.format(self.truck, row.product_code,self.district,self.posting_date, row.quantity)
 	data = frappe.db.sql(sql,as_dict=1)
+
 	if data:
 		return data[0]["cost"]
 	else:
@@ -113,6 +118,7 @@ def calculate_product_cost(self,row):
 		sql = "select cost from `tabTransportation Cost` where truck='{0}' and product='{1}' and district='{2}' and '{3}' between start_date and end_date and docstatus=1"
 	
 		sql = sql.format(self.truck, row.product_code,self.district,self.posting_date)
+		 
 		data = frappe.db.sql(sql,as_dict=1)
 		if data:
 			return data[0]["cost"]

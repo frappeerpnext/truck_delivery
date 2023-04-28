@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2023-04-23 14:04:30.379697",
+ "creation": "2023-04-28 18:53:25.122635",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -14,10 +14,15 @@
   "column_break_4",
   "payment_type",
   "customer_invoice_information_section",
-  "customer_invoice",
+  "transportation_invoice",
   "customer",
   "customer_name",
   "phone_number",
+  "column_break_11",
+  "truck",
+  "driver",
+  "driver_name",
+  "driver_phone_number",
   "column_break_10",
   "total_amount",
   "paid_amount",
@@ -28,6 +33,12 @@
   "amended_from"
  ],
  "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Document Number",
+   "options": "TP.YYYY.-.####"
+  },
   {
    "fieldname": "create_date",
    "fieldtype": "Date",
@@ -61,15 +72,7 @@
    "label": "Customer Invoice Information"
   },
   {
-   "fieldname": "customer_invoice",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Customer Invoice",
-   "options": "Customer Invoice",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "customer_invoice.customer",
+   "fetch_from": "transportation_invoice.customer",
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -78,7 +81,13 @@
    "options": "Customer"
   },
   {
-   "fetch_from": "customer_invoice.customer_phone_number",
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Customer Name"
+  },
+  {
    "fieldname": "phone_number",
    "fieldtype": "Data",
    "label": "Phone Number"
@@ -88,19 +97,19 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "customer_invoice.total_amount",
+   "fetch_from": "transportation_invoice.total_cost",
    "fieldname": "total_amount",
    "fieldtype": "Currency",
    "label": "Total Amount"
   },
   {
-   "fetch_from": "customer_invoice.total_paid",
+   "fetch_from": "transportation_invoice.total_payment",
    "fieldname": "paid_amount",
    "fieldtype": "Currency",
    "label": "Paid Amount"
   },
   {
-   "fetch_from": "customer_invoice.balance",
+   "fetch_from": "transportation_invoice.balance",
    "fieldname": "balance",
    "fieldtype": "Currency",
    "label": "Balance"
@@ -111,7 +120,8 @@
    "label": "Payment"
   },
   {
-   "fetch_from": "customer_invoice.balance",
+   "fetch_from": "transportation_invoice.balance",
+   "fetch_if_empty": 1,
    "fieldname": "payment_amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
@@ -124,11 +134,13 @@
    "label": "Note"
   },
   {
-   "fetch_from": "customer_invoice.customer_name",
-   "fieldname": "customer_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Customer Name"
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Payments",
+   "print_hide": 1,
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -140,19 +152,49 @@
    "read_only": 1
   },
   {
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "label": "Document Number",
-   "options": "P.YYYY.-.####"
+   "fieldname": "transportation_invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Transportation Invoice",
+   "options": "Transportation Billing",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "transportation_invoice.truck",
+   "fieldname": "truck",
+   "fieldtype": "Data",
+   "label": "Truck"
+  },
+  {
+   "fetch_from": "transportation_invoice.driver",
+   "fieldname": "driver",
+   "fieldtype": "Data",
+   "label": "Driver"
+  },
+  {
+   "fetch_from": "transportation_invoice.driver_name",
+   "fieldname": "driver_name",
+   "fieldtype": "Data",
+   "label": "Driver Name"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "transportation_invoice.phone_number",
+   "fieldname": "driver_phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-28 19:31:59.948696",
+ "modified": "2023-04-28 19:21:25.334846",
  "modified_by": "Administrator",
  "module": "Truck delivery",
- "name": "Payments",
+ "name": "Transportation Payment",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
