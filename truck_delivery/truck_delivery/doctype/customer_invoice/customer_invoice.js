@@ -42,7 +42,11 @@ frappe.ui.form.on('Customer Invoice', {
                             row.purchase_quantity = r.quantity;
                         }
                     });
+                   
                     frm.refresh_field('products');
+                    frm.doc.district = frm.doc.customer_district;
+                    frm.refresh_field('district');
+                    
                    
                 }
             }

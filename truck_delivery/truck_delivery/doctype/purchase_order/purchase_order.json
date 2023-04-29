@@ -83,7 +83,7 @@
    "reqd": 1
   },
   {
-   "fetch_from": "vendor.district",
+   "fetch_from": "customer.district",
    "fetch_if_empty": 1,
    "fieldname": "district",
    "fieldtype": "Link",
@@ -265,7 +265,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2023-04-21 10:28:02.186810",
+ "modified": "2023-04-29 15:38:20.513056",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Purchase Order",
