@@ -50,7 +50,7 @@ def get_conditions(filters,group_filter=None):
 		conditions += " AND truck = %(truck)s"
 	
 	if filters.get("delivery_district"):
-		conditions += " AND district= %(delivery_district)s"
+		conditions += " AND district= %(delivery_district3)s"
  
  
 	return conditions
