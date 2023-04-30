@@ -74,7 +74,7 @@ def get_report_data(filters,parent_row_group=None,indent=0,group_filter=None):
 			a.quantity as po_quantity,
 			a.total_amount,
 			a.delivered_quantity as so_quantity,
-			a.price * a.delivered_quantity as so_amount,
+			a.delivered_price * a.delivered_quantity as so_amount,
 			remaining_quantity as remaining_quantity,
 			a.price * remaining_quantity as remaining_amount
 		from `tabPurchase Order Product` a 

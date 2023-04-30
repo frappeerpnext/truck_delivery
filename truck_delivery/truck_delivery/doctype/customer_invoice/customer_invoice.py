@@ -71,11 +71,13 @@ class CustomerInvoice(Document):
 
 def update_quantity_to_po(self):
 	for d in self.products:
-		sql = "select  coalesce(sum(quantity),0) as quantity from `tabCustomer Invoice Product` where purchase_order_product_id='{}' and docstatus=1".format(d.purchase_order_product_id)
+		sql = "select  coalesce(sum(quantity),0) as quantity,coalesce(sum(total_amount),0) as amount from `tabCustomer Invoice Product` where purchase_order_product_id='{}' and docstatus=1".format(d.purchase_order_product_id)
 		data = frappe.db.sql(sql,as_dict=1)
 		invoiced_quantity = data[0]["quantity"]
+		amount = data[0]["amount"]
+
 		#update remaining qty
-		sql = "update `tabPurchase Order Product` set delivered_quantity={0}, remaining_quantity=quantity-{0} where name='{1}'".format(invoiced_quantity,d.purchase_order_product_id)
+		sql = "update `tabPurchase Order Product` set delivered_quantity={0}, remaining_quantity=quantity-{0},delivered_price = {1}/{0} where name='{2}'".format(invoiced_quantity,amount,d.purchase_order_product_id)
 		frappe.db.sql(sql)
 	
 	#update total deliver and remaining to main doc type Purchase Order

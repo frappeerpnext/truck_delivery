@@ -15,6 +15,7 @@
   "total_amount",
   "note",
   "delivered_quantity",
+  "delivered_price",
   "remaining_quantity"
  ],
  "fields": [
@@ -79,12 +80,17 @@
    "fieldtype": "Link",
    "label": "Unit",
    "options": "UoM"
+  },
+  {
+   "fieldname": "delivered_price",
+   "fieldtype": "Currency",
+   "label": "Delivered Price"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-16 16:39:00.578484",
+ "modified": "2023-04-30 14:03:09.342983",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Purchase Order Product",
