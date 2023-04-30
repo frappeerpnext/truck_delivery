@@ -30,6 +30,7 @@
   "customer_province",
   "customer_district",
   "section_break_21",
+  "total_quantity",
   "total_cost",
   "total_payment",
   "balance",
@@ -206,6 +207,11 @@
    "fieldtype": "Currency",
    "label": "Balance",
    "read_only": 1
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity"
   }
  ],
  "image_field": "photo",
@@ -218,7 +224,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2023-04-28 20:03:41.599309",
+ "modified": "2023-04-30 12:39:23.663562",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Transportation Billing",

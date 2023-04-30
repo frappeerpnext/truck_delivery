@@ -55,7 +55,8 @@ class CustomerInvoice(Document):
 			"doctype": "Transportation Billing",
 			"total_cost": self.total_transportation_cost,
 			"total_payment":0,
-			"balance": self.total_transportation_cost
+			"balance": self.total_transportation_cost,
+			"total_quantity":self.total_quantity
 		}
 		)
 		doc.insert()
