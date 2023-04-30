@@ -75,6 +75,7 @@
   },
   {
    "fetch_from": "product_code.unit",
+   "fetch_if_empty": 1,
    "fieldname": "unit",
    "fieldtype": "Link",
    "label": "Unit",
@@ -130,7 +131,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-28 19:30:53.892619",
+ "modified": "2023-04-30 12:00:33.747075",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Invoice Product",

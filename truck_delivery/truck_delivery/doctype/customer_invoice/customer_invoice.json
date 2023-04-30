@@ -17,8 +17,8 @@
   "phone_number",
   "column_break_4",
   "posting_date",
-  "district",
   "truck",
+  "district",
   "column_break_9",
   "driver",
   "driver_name",
@@ -277,7 +277,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2023-04-29 15:37:20.803631",
+ "modified": "2023-04-30 11:45:51.503275",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Invoice",
