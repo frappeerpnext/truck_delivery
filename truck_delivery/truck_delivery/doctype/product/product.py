@@ -16,7 +16,6 @@ class Product(Document):
 		end_date = end_date.strftime('%Y-%m-%d')
 
 		
-	 
 		
 		sql = "select coalesce(sum(a.quantity),0) as quantity, coalesce(sum(a.total_amount),0) as total_amount from `tabPurchase Order Product` a inner join `tabPurchase Order` b on b.name = a.parent where product_code='{}' and b.posting_date between '{}' and '{}' and b.docstatus=1".format(self.name, start_date,end_date)
 		mtd_po = frappe.db.sql(sql, as_dict=1)

@@ -77,7 +77,7 @@ def update_quantity_to_po(self):
 		amount = data[0]["amount"]
 
 		#update remaining qty
-		sql = "update `tabPurchase Order Product` set delivered_quantity={0}, remaining_quantity=quantity-{0},delivered_price = {1}/{0} where name='{2}'".format(invoiced_quantity,amount,d.purchase_order_product_id)
+		sql = "update `tabPurchase Order Product` set delivered_quantity={0}, remaining_quantity=quantity-{0},delivered_price = {1}/{2} where name='{3}'".format(invoiced_quantity,amount,invoiced_quantity if invoiced_quantity>0 else 1,d.purchase_order_product_id)
 		frappe.db.sql(sql)
 	
 	#update total deliver and remaining to main doc type Purchase Order
