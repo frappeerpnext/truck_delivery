@@ -8,7 +8,7 @@ frappe.listview_settings['Request for Quotation'] = {
         if(doc.docstatus==1){
           
             if(doc.total_purchase_order>0){
-                alert(1)
+ 
                 return [__("Purchase Order"), "red"];
             } 
             else{ 
