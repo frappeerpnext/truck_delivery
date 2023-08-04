@@ -37,7 +37,8 @@
   "total_amount",
   "section_break_17",
   "note",
-  "amended_from"
+  "amended_from",
+  "total_purchase_order"
  ],
  "fields": [
   {
@@ -213,6 +214,12 @@
    "fieldtype": "Link",
    "label": "Province",
    "options": "Province"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_purchase_order",
+   "fieldtype": "Int",
+   "label": "Total Purchase Order"
   }
  ],
  "image_field": "photo",
@@ -226,7 +233,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2023-04-21 10:27:52.275651",
+ "modified": "2023-08-04 09:32:18.834421",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Request for Quotation",
