@@ -155,7 +155,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-04-30 13:12:18.810104",
+ "modified": "2023-08-04 10:11:56.286263",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Home",
@@ -166,7 +166,7 @@
   {
    "document_type": "Request for Quotation",
    "label": "Recent RFQ",
-   "sub_title_fields": "vendor_name",
+   "sub_title_fields": "vendor_name,total_purchase_order",
    "total_amount_field": "total_amount"
   }
  ],
