@@ -15,6 +15,7 @@
   "phone_number",
   "province",
   "district",
+  "customer_type",
   "area",
   "photo",
   "purchase_product_history_tab",
@@ -26,7 +27,9 @@
   "column_break_15",
   "view_report",
   "section_break_13",
-  "product_history"
+  "product_history",
+  "purchase_qty",
+  "purchase_qty_last_month"
  ],
  "fields": [
   {
@@ -128,12 +131,30 @@
    "fieldname": "view_report",
    "fieldtype": "Button",
    "label": "View Report"
+  },
+  {
+   "fieldname": "purchase_qty",
+   "fieldtype": "Float",
+   "label": "Purchase Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer Type",
+   "options": "Customer Type"
+  },
+  {
+   "fieldname": "purchase_qty_last_month",
+   "fieldtype": "Float",
+   "label": "Purchase Qty last Month"
   }
  ],
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-23 15:07:17.729710",
+ "modified": "2023-08-19 14:30:53.051217",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer",

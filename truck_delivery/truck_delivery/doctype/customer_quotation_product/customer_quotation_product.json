@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2023-08-14 15:47:02.963458",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "product",
+  "product_name",
+  "is_free",
+  "unit",
+  "column_break_3",
+  "start_date",
+  "end_rate",
+  "section_break_7",
+  "quantity",
+  "original_cost",
+  "rebate",
+  "cost",
+  "additional_cost",
+  "additional_cost_2",
+  "additional_cost_3",
+  "total_additional_cost",
+  "column_break_11",
+  "total_cost",
+  "markup_percent",
+  "markup_amount",
+  "selling_price"
+ ],
+ "fields": [
+  {
+   "fieldname": "product",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Product",
+   "options": "Product",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "product.product_name",
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Product Name"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Cost",
+   "reqd": 1
+  },
+  {
+   "fieldname": "additional_cost",
+   "fieldtype": "Currency",
+   "label": "Additional Cost 1",
+   "reqd": 1
+  },
+  {
+   "fieldname": "markup_percent",
+   "fieldtype": "Percent",
+   "label": "Markup Percent",
+   "reqd": 1
+  },
+  {
+   "fieldname": "markup_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Markup Amount",
+   "reqd": 1
+  },
+  {
+   "fieldname": "selling_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Selling Price",
+   "reqd": 1
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "UoM"
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end_rate",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "End Date",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_free",
+   "fieldtype": "Check",
+   "label": "Beneficiary",
+   "reqd": 1
+  },
+  {
+   "fieldname": "additional_cost_2",
+   "fieldtype": "Currency",
+   "label": "Additional Cost 2"
+  },
+  {
+   "fieldname": "additional_cost_3",
+   "fieldtype": "Currency",
+   "label": "Additional Cost 3"
+  },
+  {
+   "fieldname": "total_additional_cost",
+   "fieldtype": "Currency",
+   "label": "Total Additional Cost"
+  },
+  {
+   "fieldname": "original_cost",
+   "fieldtype": "Currency",
+   "label": "Original Cost"
+  },
+  {
+   "fieldname": "rebate",
+   "fieldtype": "Currency",
+   "label": "Rebate"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-08-22 18:33:24.979658",
+ "modified_by": "Administrator",
+ "module": "Truck delivery",
+ "name": "Customer Quotation Product",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

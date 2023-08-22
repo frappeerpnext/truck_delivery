@@ -20,7 +20,5 @@ class PurchaseOrder(Document):
 		if self.request_for_quotation:
 			data = frappe.db.sql("select count(name) as total_order from `tabPurchase Order` where docstatus=1 and request_for_quotation='{}'".format(self.request_for_quotation),as_dict=1)
 			if data:
-				 
 				frappe.db.set_value("Request for Quotation", self.request_for_quotation,"total_purchase_order", data[0]["total_order"])
-
-
+			

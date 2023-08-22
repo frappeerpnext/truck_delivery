@@ -5,6 +5,7 @@ from py_linq import Enumerable
 import frappe
 from frappe.model.document import Document
 import copy
+from datetime import datetime
 
 
 
@@ -60,6 +61,38 @@ class CustomerInvoice(Document):
 		}
 		)
 		doc.insert()
+		current_date = datetime.now()
+		start_date = datetime(current_date.year, current_date.month, 1)
+		sql = """
+				update `tabCustomer` customer 
+				set 
+					purchase_qty = (
+									select 
+										coalesce(sum(a.purchase_quantity),0) 
+									from 
+										`tabCustomer Invoice Product` a 
+									inner join `tabCustomer Invoice` b on a.parent = b.name 
+									where 
+										customer.name = b.customer and 
+										b.posting_date between {1} and {2}) 
+				where name = '{0}'
+			""".format(self.customer,start_date.strftime("%Y-%m-%d"),current_date.strftime("%Y-%m-%d"))
+		sql_last_month = """
+				update `tabCustomer` customer
+				set 
+					purchase_qty_last_month = (
+									select 
+										coalesce(sum(a.purchase_quantity),0) 
+									from 
+										`tabCustomer Invoice Product` a 
+									inner join `tabCustomer Invoice` b on a.parent = b.name 
+									where 
+										customer.name = b.customer and 
+										b.posting_date between {1} and {2}) 
+				where name = '{0}'
+
+				""".format(self.customer,start_date.strftime("%Y-%m-%d"),current_date.strftime("%Y-%m-%d"))
+		frappe.db.sql(sql)
 
 
 
@@ -101,8 +134,8 @@ def validate_quaitity_with_po(row):
 	data  = frappe.db.sql("select coalesce(sum(quantity),0) as quantity from `tabCustomer Invoice Product` where purchase_order_product_id='{}' and docstatus = 1".format(row.purchase_order_product_id),as_dict=1)
 	total_invoiced_quantity  =  data[0]["quantity"]
  
-	if (total_invoiced_quantity or 0)  + (row.quantity or 0) > (total_purchase_quantity or 0):
-		frappe.throw("Invoice quantity can not greater than purchase quantity at row {}".format(row.idx))
+	# if (total_invoiced_quantity or 0)  + (row.quantity or 0) > (total_purchase_quantity or 0):
+	# 	frappe.throw("Invoice quantity can not greater than purchase quantity at row {}".format(row.idx))
 	
 
 

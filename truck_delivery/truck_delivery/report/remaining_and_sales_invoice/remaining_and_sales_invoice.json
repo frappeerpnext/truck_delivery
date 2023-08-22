@@ -1,0 +1,114 @@
+{
+ "add_total_row": 0,
+ "columns": [
+  {
+   "fieldname": "name",
+   "fieldtype": "Link",
+   "label": "P0 N",
+   "options": "Purchase Order",
+   "width": 0
+  },
+  {
+   "fieldname": "po_date",
+   "fieldtype": "Date",
+   "label": "PO DATE",
+   "width": 0
+  },
+  {
+   "fieldname": "vendor",
+   "fieldtype": "Data",
+   "label": "VENDOR CODE",
+   "width": 0
+  },
+  {
+   "fieldname": "truck",
+   "fieldtype": "Data",
+   "label": "TRUCK N",
+   "width": 0
+  },
+  {
+   "fieldname": "po_quantity",
+   "fieldtype": "Int",
+   "label": "PO QTY",
+   "width": 0
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "label": "CUSTOMER",
+   "width": 0
+  },
+  {
+   "fieldname": "invoice_qty",
+   "fieldtype": "Int",
+   "label": "INVOICE QTY",
+   "width": 0
+  },
+  {
+   "fieldname": "total_remaining_quantity",
+   "fieldtype": "Int",
+   "label": "REMAINING QTY",
+   "width": 0
+  },
+  {
+   "fieldname": "truck",
+   "fieldtype": "Data",
+   "label": "TRUCK",
+   "width": 0
+  },
+  {
+   "fieldname": "invocie_date",
+   "fieldtype": "Date",
+   "label": "INVOICE DATE",
+   "width": 0
+  },
+  {
+   "fieldname": "invoice_number",
+   "fieldtype": "Data",
+   "label": "INVOICE N",
+   "width": 0
+  }
+ ],
+ "creation": "2023-08-22 10:19:45.564065",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{}",
+ "letter_head": "Footer Only 3 Columns",
+ "modified": "2023-08-22 11:23:30.700623",
+ "modified_by": "Administrator",
+ "module": "Truck delivery",
+ "name": "Remaining and Sales Invoice",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "select\n    a.name,\n    a.posting_date as po_date,\n    a.vendor,\n    b.truck,\n    a.total_quantity as po_quantity,\n    b.customer,\n    coalesce(b.total_quantity,0) as invoice_quantity,\n    coalesce(a.total_quantity - b.total_quantity,0) as total_remaining_quantity,\n    b.truck,\n    b.posting_date as invoice_date,\n    b.name\nfrom `tabPurchase Order` a \nleft join `tabCustomer Invoice` b on a.name = b.purchase_order and b.docstatus = 1\nwhere total_remaining_quantity > 0 and  a.docstatus = 1 and\na.posting_date between %(start_date)s and %(end_date)s",
+ "ref_doctype": "Purchase Order",
+ "report_name": "Remaining and Sales Invoice",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Purchase Manager"
+  }
+ ]
+}

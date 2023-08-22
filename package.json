@@ -1,0 +1,22 @@
+{
+  "name": "truck_delivery",
+  "version": "1.0.0",
+  "description": "truck deliver",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cd scheme && yarn dev",
+    "build": "cd scheme && yarn build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frappeerpnext/truck_delivery.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frappeerpnext/truck_delivery/issues"
+  },
+  "homepage": "https://github.com/frappeerpnext/truck_delivery#readme"
+}

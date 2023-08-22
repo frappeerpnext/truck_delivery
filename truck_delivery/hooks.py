@@ -185,3 +185,7 @@ app_license = "MIT"
 # auth_hooks = [
 #	"truck_delivery.auth.validate"
 # ]
+
+website_route_rules = [{'from_route': '/scheme/<path:app_path>', 'to_route': 'scheme'},]
+
+ 
