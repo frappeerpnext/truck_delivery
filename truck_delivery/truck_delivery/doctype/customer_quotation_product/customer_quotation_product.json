@@ -24,10 +24,15 @@
   "total_additional_cost",
   "column_break_11",
   "total_cost",
-  "markup_percent",
   "markup_amount",
+  "markup_percent",
   "selling_price",
-  "general_price"
+  "general_price",
+  "quotation_info_section",
+  "qty_quotation",
+  "total_cost_quotation",
+  "column_break_26",
+  "total_selling_quotation_price"
  ],
  "fields": [
   {
@@ -156,12 +161,39 @@
    "fieldname": "general_price",
    "fieldtype": "Currency",
    "label": "General Price"
+  },
+  {
+   "fieldname": "quotation_info_section",
+   "fieldtype": "Section Break",
+   "label": "Quotation Information"
+  },
+  {
+   "fieldname": "qty_quotation",
+   "fieldtype": "Float",
+   "label": "Total Promotion Quantity ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_cost_quotation",
+   "fieldtype": "Currency",
+   "label": "Total Costing Promotion",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_selling_quotation_price",
+   "fieldtype": "Currency",
+   "label": "Total Promotion Price",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-08-23 13:44:46.870976",
+ "modified": "2023-08-23 17:40:46.022300",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Quotation Product",

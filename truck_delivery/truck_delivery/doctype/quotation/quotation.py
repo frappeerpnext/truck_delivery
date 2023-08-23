@@ -16,14 +16,14 @@ class Quotation(Document):
 				p.selling_price = p.markup_amount + p.total_cost
 			else:
 				p.selling_price = 0
-
-		if self.total_cost > self.total_selling_price:
+		total_cost_quotation = sum(c.total_cost_quotation for c in self.product) or 0
+		total_selling_quotation_price = sum(c.total_selling_quotation_price for c in self.product) or 0
+		if total_cost_quotation> total_selling_quotation_price:
 			self.profit=0
-			self.loss = self.total_selling_price - self.total_cost
+			self.loss = total_cost_quotation - total_selling_quotation_price
 		else:
 			self.loss=0
-			self.profit = self.total_selling_price -  self.total_cost
-
+			self.profit = total_selling_quotation_price - total_cost_quotation
 @frappe.whitelist()
 def get_customer_quotations(start,end,customer_type=None,customer=None):
 	filters = {
