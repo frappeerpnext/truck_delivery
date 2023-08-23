@@ -5,30 +5,28 @@
         <Dropdown showClear v-model="selectedcustomerType" :options="customer_types" optionLabel="name"
           placeholder="Select a customer type" class="w-full" />
       </div>
-      <!-- <div class="col-2">
-        <Dropdown showClear v-model="selectedProvince" @change="onProvinceChanage" :options="provinces" optionLabel="name"
-          placeholder="Select a province" class="w-full" />
-          
-      </div> -->
       <div class="col-2">
-        <Dropdown showClear :options="districts" v-model="selectedDistrict" optionLabel="name"
+        <Dropdown showClear :options="districts"  v-model="selectedDistrict" optionLabel="name"
         placeholder="Select a District" class="w-full" />
       </div>
       <div class="col-2">
+        <span class="p-float-label">
+          <AutoComplete v-model="selectedCustomer" inputId="ac" optionLabel="customer_name" :suggestions="customers" @complete="search" />
+          <label for="ac">Customer</label>
+        </span>
         
-        <AutoComplete v-model="selectedCustomer" :suggestions="customers" @complete="search" />
         <!-- <Dropdown showClear v-model="selectedCustomer" :options="customers"  optionValue="name" optionLabel="customer_name"
           placeholder="Select a customer" class="w-full" /> -->
       </div>
       <div class="col-1">
         <Button label="Filter" icon="pi pi-search" @click="onFilterClick"/>
       </div>
-      <div class="col-2 text-center title">
+      <div class="col-3 text-center title">
         {{ moment(start).format('DD MMM') }} , {{ moment(end).subtract(1, 'days').format('DD MMM') }} 
         {{ moment(end).subtract(1, 'days').format('YYYY') }}
 
       </div>
-      <div class="col-1">
+      <div class="col-2">
         <div class="flex justify-content-end">
 
           <Button @click="onPrevNext('prev')" icon="pi pi-angle-double-left"
@@ -189,6 +187,7 @@ const calendarOptions = reactive({
     const call = frappe.call()
     call.get('truck_delivery.truck_delivery.doctype.customer.customer.get_resourses',{
       district:selectedDistrict.value?.name,
+      customer:selectedCustomer.value?.name,
     }).then((r) => {
       successCallback(r.message)
     })
@@ -218,26 +217,11 @@ function onProvinceChanage(a){
 const search = (event) => {
   const frappe = new FrappeApp()
   const db = frappe.db()
-  db.getDocList('Customer',{filters: [['customer_name', '=', event.query]]}).then((r) => {
+  db.getDocList('Customer',{fields: ['name', 'customer_name'],filters: [['customer_name', 'Like', '%'+ event.query +'%']]}).then((r) => {
     customers.value = r
   })
 }
 function onFilterClick(){
-  const currenct_start = localStorage.getItem('start_date')
-  const current_end = localStorage.getItem('end_date')
-  let selected_province_name,selected_customer_type_name,selected_customer;
-  if(selectedProvince.value){
-    selected_province_name=selectedProvince.value.name;
-  }
-  if(selectedcustomerType.value){
-    selected_customer_type_name = selectedcustomerType.value.name;
-  }
-  if(selectedCustomer.value){
-    selected_customer = selectedCustomer.value.name;
-  }
-  loadQuotation(currenct_start,current_end,selected_customer_type_name,selected_province_name)
-}
-function loadQuotation(start, end,customer_type=undefined,province=undefined) {
   const cal = fullCalendar.value.getApi()
   cal.refetchEvents()
   cal.refetchResources()

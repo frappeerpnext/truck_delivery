@@ -22,4 +22,5 @@ def get_resourses(district=None,customer=None):
 		else:
 			customers = frappe.db.get_list('Customer',filters={"district":dis.id},fields=['name as id','customer_name as title','customer_type','province'])
 		dis.children = customers
-	return districts
+	filtered_data = [item for item in districts if item["children"]]
+	return filtered_data
