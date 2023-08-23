@@ -7,7 +7,7 @@ from frappe.model.document import Document
 class Customer(Document):
 	pass
 @frappe.whitelist()
-def get_resourses(district=None):
+def get_resourses(district=None,customer=None):
 	if str(district) != 'None':
 		districts = frappe.db.get_all('District',fields=['name as id','province','name'],filters={"name":district})
 	else:
@@ -16,6 +16,10 @@ def get_resourses(district=None):
 	for dis in districts:
 		dis.children=[]
 		dis.title=dis.name
-		customers = frappe.db.get_all('Customer',filters={"district":dis.id},fields=['name as id','customer_name as title','customer_type','province'])
+		if customer:
+			customers = frappe.db.get_list('Customer',filters={"district":dis.id,"name":customer},fields=['name as id','customer_name as title','customer_type','province'])
+			
+		else:
+			customers = frappe.db.get_list('Customer',filters={"district":dis.id},fields=['name as id','customer_name as title','customer_type','province'])
 		dis.children = customers
 	return districts
