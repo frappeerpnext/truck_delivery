@@ -10,6 +10,7 @@ import { FrappeApp } from "frappe-js-sdk"
 import PrimeVue from 'primevue/config';
 import Button from 'primevue/button';
 import Dropdown from 'primevue/dropdown';
+import AutoComplete from 'primevue/autocomplete';
 
 
 const app = createApp(App);
@@ -27,4 +28,5 @@ app.use(frappe)
 app.provide("$frappe", frappe);
 app.component('Button', Button);
 app.component('Dropdown', Dropdown);
+app.component('AutoComplete', AutoComplete);
 app.mount("#app");

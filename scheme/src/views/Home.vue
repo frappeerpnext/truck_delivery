@@ -5,23 +5,30 @@
         <Dropdown showClear v-model="selectedcustomerType" :options="customer_types" optionLabel="name"
           placeholder="Select a customer type" class="w-full" />
       </div>
-      <div class="col-2">
-        <Dropdown showClear v-model="selectedProvince" :options="provinces" optionLabel="name"
+      <!-- <div class="col-2">
+        <Dropdown showClear v-model="selectedProvince" @change="onProvinceChanage" :options="provinces" optionLabel="name"
           placeholder="Select a province" class="w-full" />
+          
+      </div> -->
+      <div class="col-2">
+        <Dropdown showClear :options="districts" v-model="selectedDistrict" optionLabel="name"
+        placeholder="Select a District" class="w-full" />
       </div>
       <div class="col-2">
-        <Dropdown showClear v-model="selectedCustomer" :options="customers"  optionValue="name" optionLabel="customer_name"
-          placeholder="Select a customer" class="w-full" />
+        
+        <AutoComplete v-model="selectedCustomer" :suggestions="customers" @complete="search" />
+        <!-- <Dropdown showClear v-model="selectedCustomer" :options="customers"  optionValue="name" optionLabel="customer_name"
+          placeholder="Select a customer" class="w-full" /> -->
       </div>
       <div class="col-1">
         <Button label="Filter" icon="pi pi-search" @click="onFilterClick"/>
       </div>
-      <div class="col-3 text-center title">
+      <div class="col-2 text-center title">
         {{ moment(start).format('DD MMM') }} , {{ moment(end).subtract(1, 'days').format('DD MMM') }} 
         {{ moment(end).subtract(1, 'days').format('YYYY') }}
 
       </div>
-      <div class="col-2">
+      <div class="col-1">
         <div class="flex justify-content-end">
 
           <Button @click="onPrevNext('prev')" icon="pi pi-angle-double-left"
@@ -54,7 +61,6 @@
 <script setup type="module">
 // import '@fullcalendar/core/vdom'
 import iconTodayCalendar from '@/assets/svg/calendar-today-icon.svg'
-import { useRouter } from 'vue-router'
 
 import FullCalendar from '@fullcalendar/vue3'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -62,12 +68,16 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import { ref, reactive, onMounted } from 'vue'
 import { FrappeApp } from 'frappe-js-sdk'
 import moment from 'moment'
+
+
 let selectedProvince = ref();
 let selectedcustomerType = ref();
 let selectedCustomer = ref();
+let selectedDistrict = ref();
 let provinces = ref([]);
 let customer_types = ref([]);
 let customers = ref([]);
+let districts = ref([]);
 let start = ref()
 let end = ref();
 const fullCalendar = ref(null)
@@ -80,10 +90,11 @@ onMounted(() => {
   db.getDocList('Customer Type').then((r) => {
     customer_types.value = r
   })
-  db.getDocList('Customer',{fields:['name','customer_name']}).then((r) => {
-    customers.value = r
-  })
   
+  
+  db.getDocList('District',{fields:['name']}).then((r) => {
+    districts.value = r
+  })
 })
 
 
@@ -176,7 +187,9 @@ const calendarOptions = reactive({
   resources: function (info, successCallback, failureCallback) {
     const frappe = new FrappeApp()
     const call = frappe.call()
-    call.get('truck_delivery.truck_delivery.doctype.customer.customer.get_resourses').then((r) => {
+    call.get('truck_delivery.truck_delivery.doctype.customer.customer.get_resourses',{
+      district:selectedDistrict.value?.name,
+    }).then((r) => {
       successCallback(r.message)
     })
   },
@@ -189,7 +202,7 @@ const calendarOptions = reactive({
     call.get('truck_delivery.truck_delivery.doctype.quotation.quotation.get_customer_quotations', {
       start: start,
       end: end,
-      province:selectedProvince.value?.name,
+      // province:selectedProvince.value?.name,
       customer_type:selectedcustomerType.value?.name,
       customer:selectedCustomer.value?.name,
     }).then((r) => {
@@ -197,6 +210,18 @@ const calendarOptions = reactive({
     })
   }
 })
+function onProvinceChanage(a){
+  db.getDocList('District',{fields:['name'],filters: [['prorince', '=', selectedProvince.value.name]]}).then((r) => {
+    districts.value = r
+  })
+}
+const search = (event) => {
+  const frappe = new FrappeApp()
+  const db = frappe.db()
+  db.getDocList('Customer',{filters: [['customer_name', '=', event.query]]}).then((r) => {
+    customers.value = r
+  })
+}
 function onFilterClick(){
   const currenct_start = localStorage.getItem('start_date')
   const current_end = localStorage.getItem('end_date')
@@ -215,15 +240,7 @@ function onFilterClick(){
 function loadQuotation(start, end,customer_type=undefined,province=undefined) {
   const cal = fullCalendar.value.getApi()
   cal.refetchEvents()
-  call.get('truck_delivery.truck_delivery.doctype.quotation.quotation.get_customer_quotations', {
-    start: start,
-    end: end,
-    province:province??null,
-    customer_type:customer_type??null,
-    customer:customer??null
-  }).then((r) => {
-    
-  })
+  cal.refetchResources()
 }
 function todayClick(){
     const cal = fullCalendar.value.getApi()

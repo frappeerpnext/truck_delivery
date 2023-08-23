@@ -25,18 +25,18 @@ class Quotation(Document):
 			self.profit = self.total_selling_price -  self.total_cost
 
 @frappe.whitelist()
-def get_customer_quotations(start,end,province=None,customer_type=None,customer=None):
+def get_customer_quotations(start,end,customer_type=None,customer=None):
 	filters = {
 		'start_date': ['>=', start],
 		'end_date': ['<=', end] ,
 		'docstatus': ['=', 1] ,
 
 	}
-	if str(province) != 'None':
-		filters['province'] = ['=', province]
+	# if str(province) != 'None':
+	# 	filters['province'] = ['=', province]
   
 	if str(customer_type) != 'None':
-		filters['customer_type'] = ['=', customer_type]\
+		filters['customer_type'] = ['=', customer_type]
       
 	if str(customer) != 'None':
 		filters['customer'] = ['=', customer]
