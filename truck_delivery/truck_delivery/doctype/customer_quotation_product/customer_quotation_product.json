@@ -26,7 +26,8 @@
   "total_cost",
   "markup_percent",
   "markup_amount",
-  "selling_price"
+  "selling_price",
+  "general_price"
  ],
  "fields": [
   {
@@ -150,12 +151,17 @@
    "fieldname": "rebate",
    "fieldtype": "Currency",
    "label": "Rebate"
+  },
+  {
+   "fieldname": "general_price",
+   "fieldtype": "Currency",
+   "label": "General Price"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-08-22 18:33:24.979658",
+ "modified": "2023-08-23 13:44:46.870976",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Quotation Product",
