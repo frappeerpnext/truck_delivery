@@ -212,8 +212,8 @@ const calendarOptions = reactive({
       start: start,
       end: end,
       // province:selectedProvince.value?.name,
-      customer_type:"'"+selectedcustomerType.value?.name+"'",
-      customer:"'" + selectedCustomer.value?.name + "'",
+      customer_type:selectedcustomerType.value?.name,
+      customer:selectedCustomer.value?.name,
     }).then((r) => {
       successCallback(r.message)
     })
