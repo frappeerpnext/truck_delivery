@@ -181,9 +181,7 @@ const calendarOptions = reactive({
   },
   eventClick: ((info) => {
     const data = info.event._def.extendedProps;
-    console.log(data)
-    console.log(info)
-    // window.open(window.location.origin + "/app/quotation/" + info.event._def.publicId, "_blank")
+    window.open(window.location.origin + "/app/quotation/" + info.event._def.publicId, "_blank")
   }),
   select: (($event) => {
     let param = {
@@ -214,8 +212,8 @@ const calendarOptions = reactive({
       start: start,
       end: end,
       // province:selectedProvince.value?.name,
-      customer_type:selectedcustomerType.value?.name,
-      customer:selectedCustomer.value?.name,
+      customer_type:"'"+selectedcustomerType.value?.name+"'",
+      customer:"'" + selectedCustomer.value?.name + "'",
     }).then((r) => {
       successCallback(r.message)
     })
