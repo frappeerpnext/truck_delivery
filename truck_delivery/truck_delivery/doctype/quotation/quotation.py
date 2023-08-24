@@ -44,6 +44,6 @@ class Quotation(Document):
 
 @frappe.whitelist()
 def get_customer_quotations(start,end,customer_type=None,customer=None):
-	sql=""" select customer as resourceId,name as id,start_date as start,end_date as end,name as title,IF(docstatus=1,"#148031","#a11b36") as backgroundColor, "#148031" as borderColor from `tabQuotation` where name in (select distinct quotation_number from `tabQuotation Date` where date between '{0}' and '{1}' and customer = {2} and customer_type={3}) and customer = {2} and customer_type={3} """.format(getdate(start),getdate(end),customer or 'customer',customer_type or 'customer_type',)
+	sql=""" select customer as resourceId,name as id,start_date as start,end_date as end,name as title,IF(docstatus=1,"#148031","#a11b36") as backgroundColor, IF(docstatus=1,"#148031","#a11b36") as borderColor from `tabQuotation` where name in (select distinct quotation_number from `tabQuotation Date` where date between '{0}' and '{1}' and customer = '{2}' and customer_type='{3}') and customer = {2} and customer_type={3} """.format(getdate(start),getdate(end),customer or 'customer',customer_type or 'customer_type',)
 	quotations = frappe.db.sql(sql,as_dict=1)
 	return quotations
