@@ -28,7 +28,6 @@ class Quotation(Document):
 def get_customer_quotations(start,end,customer_type=None,customer=None):
 	filters = {
 		'start_date': ['>=', start],
-		'end_date': ['<=', end] ,
 		'docstatus': ['=', 1] ,
 
 	}
