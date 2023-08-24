@@ -50,17 +50,15 @@ frappe.ui.form.on('Customer Quotation Product', {
     },
     original_cost: function (frm, cdt, cdn) {
         var child = locals[cdt][cdn];
+        child.cost=child.original_cost - child.rebate;
         var total_cost = (child.cost + child.additional_cost + child.additional_cost_2 + child.additional_cost_3) * child.quantity;
-        //child.cost = child.original_cost - child.rebate;
-        let markup_amount = child.total_cost * child.markup_percent / 100;
+        child.total_cost=total_cost;
         let selling_price = child.total_cost + child.markup_amount;
+        child.selling_price=selling_price;
         let markup_percent = (child.markup_amount * 100) / child.total_cost
-        frappe.model.set_value(cdt, cdn, 'selling_price', selling_price);
-        frappe.model.set_value(cdt, cdn, 'markup_amount', markup_amount);
-        frappe.model.set_value(cdt, cdn, 'cost', child.original_cost - child.rebate);
-        frappe.model.set_value(cdt, cdn, 'total_cost', total_cost);
-        frappe.model.set_value(cdt, cdn, 'total_additional_cost', (child.additional_cost + child.additional_cost_2 + child.additional_cost_3));
-        frappe.model.set_value(cdt, cdn, 'markup_percent', markup_percent);
+        child.markup_percent=markup_percent;
+        child.total_additional_cost=child.additional_cost + child.additional_cost_2 + child.additional_cost_3;
+        calculate_selling_price(frm, cdt, cdn)
         frm.refresh_field("product");
     },
     additional_cost: function (frm, cdt, cdn) {
@@ -88,31 +86,31 @@ frappe.ui.form.on('Customer Quotation Product', {
 
     markup_amount: function (frm, cdt, cdn) {
         calculate_markup_percent(frm, cdt, cdn)
+        calculate_selling_price(frm, cdt, cdn)
         frm.refresh_field("product");
     },
     rebate: function (frm, cdt, cdn) {
         var child = locals[cdt][cdn];
         var cost = (child.original_cost - child.rebate);
-        frappe.model.set_value(cdt, cdn, 'cost', cost);
+        child.cost=cost;
+        frm.refresh_field("product");
     },
 
     qty_quotation: function (frm, cdt, cdn) {
         var child = locals[cdt][cdn];
         var total_selling_cost = child.qty_quotation * child.total_cost;
         var total_selling_quotation_price = child.qty_quotation * child.selling_price;
-
-        
-        frappe.model.set_value(cdt, cdn, 'total_cost_quotation', total_selling_cost);
-        frappe.model.set_value(cdt, cdn, 'total_selling_quotation_price', total_selling_quotation_price);
+        child.total_cost_quotation=total_selling_cost;
+        child.total_selling_quotation_price=total_selling_quotation_price;
+        frm.refresh_field("product");
     },
     total_cost_quotation: function (frm, cdt, cdn) {
-        
         var child = locals[cdt][cdn];
         var total_selling_cost = child.qty_quotation * child.total_cost;
         var total_selling_quotation_price = child.qty_quotation * child.selling_price;
-        console.log(total_selling_quotation_price)
-        frappe.model.set_value(cdt, cdn, 'total_cost_quotation', total_selling_cost);
-        frappe.model.set_value(cdt, cdn, 'total_selling_quotation_price', total_selling_quotation_price);
+        child.total_cost_quotation=total_selling_cost;
+        child.total_selling_quotation_price=total_selling_quotation_price;
+        frm.refresh_field("product");
     },
 
 });
@@ -123,20 +121,21 @@ function calculate_cost(frm, cdt, cdn) {
     child.cost = child.original_cost - child.rebate;
     var total_selling_cost = child.qty_quotation * child.total_cost;
     var total_selling_quotation_price = child.qty_quotation * child.selling_price;
-    frappe.model.set_value(cdt, cdn, 'total_cost_quotation', total_selling_cost);
-    frappe.model.set_value(cdt, cdn, 'total_selling_quotation_price', total_selling_quotation_price);
-    frappe.model.set_value(cdt, cdn, 'total_cost', total_cost);
-    frappe.model.set_value(cdt, cdn, 'total_additional_cost', (child.additional_cost + child.additional_cost_2 + child.additional_cost_3));
-
+    child.total_cost_quotation=total_selling_cost;
+    child.total_selling_quotation_price = total_selling_quotation_price;
+    child.total_cost=total_cost;
+    child.total_additional_cost=(child.additional_cost + child.additional_cost_2 + child.additional_cost_3)
+    frm.refresh_field("product");
 }
 function calculate_mark_up_amount(frm, cdt, cdn) {
     var child = locals[cdt][cdn];
     let markup_amount = child.total_cost * child.markup_percent / 100;
     var total_selling_cost = child.qty_quotation * child.total_cost;
     var total_selling_quotation_price = child.qty_quotation * child.selling_price;
-    frappe.model.set_value(cdt, cdn, 'total_cost_quotation', total_selling_cost);
-    frappe.model.set_value(cdt, cdn, 'total_selling_quotation_price', total_selling_quotation_price);
-    frappe.model.set_value(cdt, cdn, 'markup_amount', markup_amount);
+    child.total_cost_quotation=total_selling_cost;
+    child.total_selling_quotation_price=total_selling_quotation_price;
+    child.markup_amount=markup_amount;
+    frm.refresh_field("product");
 }
 
 function calculate_selling_price(frm, cdt, cdn) {
@@ -144,16 +143,18 @@ function calculate_selling_price(frm, cdt, cdn) {
     let selling_price = child.total_cost + child.markup_amount;
     var total_selling_cost = child.qty_quotation * child.total_cost;
     var total_selling_quotation_price = child.qty_quotation * child.selling_price;
-    frappe.model.set_value(cdt, cdn, 'total_cost_quotation', total_selling_cost);
-    frappe.model.set_value(cdt, cdn, 'total_selling_quotation_price', total_selling_quotation_price);
-    frappe.model.set_value(cdt, cdn, 'selling_price', selling_price);
+    child.total_cost_quotation=total_selling_cost;
+    child.total_selling_quotation_price=total_selling_quotation_price;
+    child.selling_price=selling_price;
+    frm.refresh_field("product");
 }
 function calculate_markup_percent(frm, cdt, cdn) {
     var child = locals[cdt][cdn];
     let markup_percent = (child.markup_amount * 100) / child.total_cost;
     var total_selling_cost = child.qty_quotation * child.total_cost;
     var total_selling_quotation_price = child.qty_quotation * child.selling_price;
-    frappe.model.set_value(cdt, cdn, 'total_cost_quotation', total_selling_cost);
-    frappe.model.set_value(cdt, cdn, 'total_selling_quotation_price', total_selling_quotation_price);
-    frappe.model.set_value(cdt, cdn, 'markup_percent', markup_percent);
+    child.total_cost_quotation=total_selling_cost;
+    child.total_selling_quotation_price=total_selling_quotation_price;
+    child.markup_percent=markup_percent;
+    frm.refresh_field("product");
 }

@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe.utils.data import add_to_date, getdate
 from frappe.model.document import Document
 
 class Quotation(Document):
@@ -24,26 +25,25 @@ class Quotation(Document):
 		else:
 			self.loss=0
 			self.profit = total_selling_quotation_price - total_cost_quotation
+   
+	def after_insert(self):
+		start_date = getdate(self.start_date)
+		while start_date <= getdate(self.end_date) :
+			frappe.get_doc({'doctype':'Quotation Date','date':start_date,'quotation_number':self.name,'customer':self.customer,'customer_name':self.customer_name,'customer_type':self.customer_type}).insert()
+			
+			start_date=add_to_date(start_date,days=1)
+		frappe.db.commit()
+	
+	def on_cancel(self):
+		sql = """ delete `tabQuotation Date` where quotation_date ={} """.format(self.name)
+		frappe.db.sql(sql,as_dict=1)
+
+	def after_delete(self):
+		sql = """ delete `tabQuotation Date` where quotation_date ={} """.format(self.name)
+		frappe.db.sql(sql,as_dict=1)
+
 @frappe.whitelist()
 def get_customer_quotations(start,end,customer_type=None,customer=None):
-	filters = {
-		'start_date': ['>=', start],
-		'docstatus': ['=', 1] ,
-
-	}
-	# if str(province) != 'None':
-	# 	filters['province'] = ['=', province]
-  
-	if str(customer_type) != 'None':
-		filters['customer_type'] = ['=', customer_type]
-      
-	if str(customer) != 'None':
-		filters['customer'] = ['=', customer]
-
-	quotations = frappe.db.get_list('Quotation',fields=['name as id','start_date as start','end_date as end','province','customer','creation','customer_name'],filters=filters)
-	for r in quotations:
-		r.resourceId=''
-		r.resourceId= r.customer
-		r.province= r.province
-	
+	sql=""" select customer as resourceId,name as id,start_date as start,end_date as end,name as title,IF(docstatus=1,"#148031","#a11b36") as backgroundColor, "#148031" as borderColor from `tabQuotation` where name in (select distinct quotation_number from `tabQuotation Date` where date between '{0}' and '{1}' and customer = {2} and customer_type={3}) and customer = {2} and customer_type={3} """.format(getdate(start),getdate(end),customer or 'customer',customer_type or 'customer_type',)
+	quotations = frappe.db.sql(sql,as_dict=1)
 	return quotations

@@ -41,14 +41,14 @@
       </div>
     </div>
     <div class="body">
-
       <FullCalendar ref="fullCalendar" :options="calendarOptions">
         <template v-slot:eventContent="{ event }">
+          
           <div class="group relative h-full p-1" :class="event.extendedProps.type" style="cursor: pointer;">
             <div class="flex">
               <div class="geust-title">
-                {{ event.id }} ({{ moment(event.start).format('DD-MMM') }}, {{ moment(event.end).format('DD-MMM') }}),Last 100, Current 150
-                <!-- <span v-if="event.extendedProps.pay_by_company">Pay by company</span> -->
+                {{ event.title }} ({{ moment(event.start).format('DD-MMM') }}, {{ moment(event.end).format('DD-MMM') }}),Last 100, Current 150
+           
               </div>
             </div>
           </div>
@@ -180,7 +180,10 @@ const calendarOptions = reactive({
     return date
   },
   eventClick: ((info) => {
-    window.open(window.location.origin + "/app/quotation/" + info.event._def.publicId, "_blank")
+    const data = info.event._def.extendedProps;
+    console.log(data)
+    console.log(info)
+    // window.open(window.location.origin + "/app/quotation/" + info.event._def.publicId, "_blank")
   }),
   select: (($event) => {
     let param = {
@@ -270,11 +273,11 @@ function onPrevNext(key) {
 <style>
 .body {
   font-family: 'Poppins','kh system' !important;
+  height: calc(100vh - 65px);
+  overflow-y: auto;
 }
 
 .fc-h-event {
-  background-color: #007bff !important;
-  border: 1px solid #007bff !important;
   display: block;
   border-radius: 20px;
 }

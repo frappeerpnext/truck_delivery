@@ -61,40 +61,7 @@ class CustomerInvoice(Document):
 		}
 		)
 		doc.insert()
-		# current_date = datetime.now()
-		# start_date = datetime(current_date.year, current_date.month, 1)
-		# sql = """
-		# 		update `tabCustomer` customer 
-		# 		set 
-		# 			purchase_qty = (
-		# 							select 
-		# 								coalesce(sum(a.purchase_quantity),0) 
-		# 							from 
-		# 								`tabCustomer Invoice Product` a 
-		# 							inner join `tabCustomer Invoice` b on a.parent = b.name 
-		# 							where 
-		# 								customer.name = b.customer and 
-		# 								b.posting_date between {1} and {2}) 
-		# 		where name = '{0}'
-		# 	""".format(self.customer,start_date.strftime("%Y-%m-%d"),current_date.strftime("%Y-%m-%d"))
-		# sql_last_month = """
-		# 		update `tabCustomer` customer
-		# 		set 
-		# 			purchase_qty_last_month = (
-		# 							select 
-		# 								coalesce(sum(a.purchase_quantity),0) 
-		# 							from 
-		# 								`tabCustomer Invoice Product` a 
-		# 							inner join `tabCustomer Invoice` b on a.parent = b.name 
-		# 							where 
-		# 								customer.name = b.customer and 
-		# 								b.posting_date between {1} and {2}) 
-		# 		where name = '{0}'
-
-		# 		""".format(self.customer,start_date.strftime("%Y-%m-%d"),current_date.strftime("%Y-%m-%d"))
-		# frappe.db.sql(sql)
-
-
+				
 
 	def on_cancel(self):
 	
