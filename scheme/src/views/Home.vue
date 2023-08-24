@@ -6,6 +6,10 @@
           placeholder="Select a customer type" class="w-full" />
       </div>
       <div class="col-2">
+        <Dropdown showClear :options="provinces"  v-model="selectedProvince" @change="selectedProvicneChanged" optionLabel="name"
+        placeholder="Select a Province" class="w-full" />
+      </div>
+      <div class="col-2">
         <Dropdown showClear :options="districts"  v-model="selectedDistrict" optionLabel="name"
         placeholder="Select a District" class="w-full" />
       </div>
@@ -15,18 +19,16 @@
           <label for="ac">Customer</label>
         </span>
         
-        <!-- <Dropdown showClear v-model="selectedCustomer" :options="customers"  optionValue="name" optionLabel="customer_name"
-          placeholder="Select a customer" class="w-full" /> -->
       </div>
       <div class="col-1">
         <Button label="Filter" icon="pi pi-search" @click="onFilterClick"/>
       </div>
-      <div class="col-3 text-center title">
+      <div class="col-2 text-center title">
         {{ moment(start).format('DD MMM') }} , {{ moment(end).subtract(1, 'days').format('DD MMM') }} 
         {{ moment(end).subtract(1, 'days').format('YYYY') }}
 
       </div>
-      <div class="col-2">
+      <div class="col-1">
         <div class="flex justify-content-end">
 
           <Button @click="onPrevNext('prev')" icon="pi pi-angle-double-left"
@@ -72,6 +74,7 @@ let selectedProvince = ref();
 let selectedcustomerType = ref();
 let selectedCustomer = ref();
 let selectedDistrict = ref();
+let selectedProvicne = ref();
 let provinces = ref([]);
 let customer_types = ref([]);
 let customers = ref([]);
@@ -88,13 +91,19 @@ onMounted(() => {
   db.getDocList('Customer Type').then((r) => {
     customer_types.value = r
   })
-  
-  
-  db.getDocList('District',{fields:['name']}).then((r) => {
-    districts.value = r
+ 
+  db.getDocList('Province',{fields:['name']}).then((r) => {
+    provinces.value = r
   })
 })
 
+function selectedProvicneChanged(event){
+  const frappe = new FrappeApp()
+  const db = frappe.db()
+  db.getDocList('District',{fields:['name'],filters: [['province', '=',  event.value.name ]]}).then((r) => {
+    districts.value = r
+  })
+}
 
 function resourceColumn() {
   return [
@@ -233,7 +242,8 @@ function todayClick(){
     cal.changeView('resourceTimeline', { start: moment(startDate).format('YYYY-MM-DD'), end: moment(endDate).format('YYYY-MM-DD') });
     localStorage.setItem('start_date', moment(startDate).format('YYYY-MM-DD'))
     localStorage.setItem('end_date', moment(endDate).format('YYYY-MM-DD'))
-    loadQuotation(start, end)
+    cal.refetchEvents()
+  cal.refetchResources()
   }
 function onPrevNext(key) {
   const cal = fullCalendar.value.getApi()
@@ -243,21 +253,23 @@ function onPrevNext(key) {
     cal.changeView('resourceTimeline', { start: moment(currenct_start).subtract(3, 'days').format('YYYY-MM-DD'), end: moment(current_end).add(3, 'days').format('YYYY-MM-DD') });
     localStorage.setItem('start_date', moment(currenct_start).subtract(3, 'days').format('YYYY-MM-DD'))
     localStorage.setItem('end_date', moment(current_end).subtract(3, 'days').format('YYYY-MM-DD'))
-    loadQuotation(start, end)
+    cal.refetchEvents()
+  cal.refetchResources()
   } else {
     const currenct_start = localStorage.getItem('start_date')
     const current_end = localStorage.getItem('end_date')
     cal.changeView('resourceTimeline', { start: moment(currenct_start).add(3, 'days').format('YYYY-MM-DD'), end: moment(current_end).add(3, 'days').format('YYYY-MM-DD') });
     localStorage.setItem('start_date', moment(currenct_start).add(3, 'days').format('YYYY-MM-DD'))
     localStorage.setItem('end_date', moment(current_end).add(3, 'days').format('YYYY-MM-DD'))
-    loadQuotation(start, end)
+    cal.refetchEvents()
+  cal.refetchResources()
   }
 }
 
 </script>
 <style>
 .body {
-  font-family: 'Poppins' !important;
+  font-family: 'Poppins','kh system' !important;
 }
 
 .fc-h-event {
