@@ -35,11 +35,11 @@ class Quotation(Document):
 		frappe.db.commit()
 	
 	def on_cancel(self):
-		sql = """ delete `tabQuotation Date` where quotation_date ={} """.format(self.name)
+		sql = """ delete from `tabQuotation Date` where quotation_number ='{}' """.format(self.name)
 		frappe.db.sql(sql,as_dict=1)
 
 	def after_delete(self):
-		sql = """ delete `tabQuotation Date` where quotation_date ={} """.format(self.name)
+		sql = """ delete from `tabQuotation Date` where quotation_number ='{}' """.format(self.name)
 		frappe.db.sql(sql,as_dict=1)
 
 @frappe.whitelist()
