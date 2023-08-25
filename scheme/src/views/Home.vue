@@ -47,8 +47,9 @@
           <div style="cursor: pointer;">
             <div class="flex">
               <div class="geust-title">
-                {{ event.title }} ({{ moment(event.start).format('DD-MMM') }}, {{ moment(event.end).format('DD-MMM') }}), Last Order {{ event.last_month_order }}, {{event.current_order}}
-           
+                {{ event.title }} 
+                ({{ moment(event.start).format('DD-MMM') }}, {{ moment(event.end).format('DD-MMM') }}), 
+                Last Order {{ event.extendedProps.last_month_order }}, Current {{event.extendedProps.current_order}}
               </div>
             </div>
           </div>
