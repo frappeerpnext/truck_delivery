@@ -5,7 +5,7 @@ from py_linq import Enumerable
 import frappe
 from frappe.model.document import Document
 import copy
-from datetime import datetime
+from frappe.utils.data import add_to_date, getdate,format_date
 
 
 
@@ -31,6 +31,7 @@ class CustomerInvoice(Document):
 		for d in self.products:
 			d.total_amount = (d.quantity or 1) * (d.price or 0)
 			validate_quaitity_with_po(d)
+
 
 	def on_submit(self):
 		update_quantity_to_po(self)
@@ -61,7 +62,16 @@ class CustomerInvoice(Document):
 		}
 		)
 		doc.insert()
-				
+		current_date = getdate()
+		last_start_date = add_to_date(format_date(current_date,"yyyy-mm-01"),months=-1)
+		last_end_date = add_to_date(format_date(current_date,"yyyy-mm-01"),days=-1)
+		current_start_date = format_date(current_date,"yyyy-mm-01")
+		current_end_date = format_date(current_date,"yyyy-mm-dd")
+		sql = """ Update `tabCustomer` 
+  						set last_month_order = Coalesce((SELECT SUM(total_quantity) from `tabCustomer Invoice` where posting_date between '{1}' and '{2}' and customer = '{0}'),0),
+  						current_order = Coalesce((SELECT SUM(total_quantity) from `tabCustomer Invoice` where posting_date between '{3}' and '{4}' and customer = '{0}'),0) 
+             		where name = '{0}'""".format(self.customer,last_start_date,last_end_date,current_start_date,current_end_date)
+		frappe.db.sql(sql)
 
 	def on_cancel(self):
 	

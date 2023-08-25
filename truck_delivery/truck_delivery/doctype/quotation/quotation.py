@@ -48,7 +48,22 @@ def get_customer_quotations(start,end,customer_type=None,customer=None):
 		customer_type = "'"+customer_type+"'"
 	if customer :
 		customer = "'"+customer+"'"
-	sql=""" select customer as resourceId,name as id,start_date as start,end_date as end,name as title,IF(docstatus=1,"#148031","#a11b36") as backgroundColor, IF(docstatus=1,"#148031","#a11b36") as borderColor from `tabQuotation` where name in (select distinct quotation_number from `tabQuotation Date` where date between '{0}' and '{1}' and customer = {2} ) and customer = {2}  """.format(getdate(start),getdate(end),customer or 'customer',)
-	frappe.msgprint(sql)
+	sql=""" 
+ 		select
+   			customer as resourceId,
+			a.name as id,
+			a.start_date as start,
+			a.end_date as end,
+			a.name as title,
+   			IF(a.docstatus=1,"#007bff","#efefef") as backgroundColor,
+			IF(a.docstatus=1,"white","#18181a") as textColor, 
+			IF(a.docstatus=1,"#007bff","#efefef") as borderColor,
+			b.current_order,
+			b.last_month_order
+        from `tabQuotation` a
+        inner join `tabCustomer` b on a.customer = b.name
+        where 
+        	a.name in (select distinct quotation_number from `tabQuotation Date` where date between '{0}' and '{1}' and customer = {2} and customer_type = {3}) and
+    		a.customer = {2}  and a.customer_type = a.{3}""".format(getdate(start),getdate(end),customer or 'customer',customer_type or 'customer_type')
 	quotations = frappe.db.sql(sql,as_dict=1)
 	return quotations

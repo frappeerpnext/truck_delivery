@@ -44,10 +44,10 @@
       <FullCalendar ref="fullCalendar" :options="calendarOptions">
         <template v-slot:eventContent="{ event }">
           
-          <div class="group relative h-full p-1" :class="event.extendedProps.type" style="cursor: pointer;">
+          <div style="cursor: pointer;">
             <div class="flex">
               <div class="geust-title">
-                {{ event.title }} ({{ moment(event.start).format('DD-MMM') }}, {{ moment(event.end).format('DD-MMM') }}),Last 100, Current 150
+                {{ event.title }} ({{ moment(event.start).format('DD-MMM') }}, {{ moment(event.end).format('DD-MMM') }}), Last Order {{ event.last_month_order }}, {{event.current_order}}
            
               </div>
             </div>
@@ -290,7 +290,9 @@ function onPrevNext(key) {
   height: 16px;
 }
 .fc table{
-  font-size: 12px!important;
-  
+  font-size: 13px!important; 
+}
+.fc-timeline-event:not(.fc-event-end)::after, .fc-timeline-event:not(.fc-event-start)::before{
+  display: none!important;;
 }
 </style>

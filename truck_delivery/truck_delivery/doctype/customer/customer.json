@@ -29,7 +29,9 @@
   "section_break_13",
   "product_history",
   "purchase_qty",
-  "purchase_qty_last_month"
+  "purchase_qty_last_month",
+  "last_month_order",
+  "current_order"
  ],
  "fields": [
   {
@@ -149,12 +151,26 @@
    "fieldname": "purchase_qty_last_month",
    "fieldtype": "Float",
    "label": "Purchase Qty last Month"
+  },
+  {
+   "fieldname": "last_month_order",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Last Month Order",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_order",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Current Order",
+   "read_only": 1
   }
  ],
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-08-19 14:30:53.051217",
+ "modified": "2023-08-25 10:00:38.745239",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer",

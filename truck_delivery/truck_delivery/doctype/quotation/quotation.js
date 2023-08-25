@@ -89,6 +89,13 @@ frappe.ui.form.on('Customer Quotation Product', {
         calculate_selling_price(frm, cdt, cdn)
         frm.refresh_field("product");
     },
+    general_markup_amount:function(frm, cdt, cdn){
+        var child = locals[cdt][cdn];
+        child.general_markup_percent = (child.markup_amount * 100) / child.total_cost;
+        child.general_price = child.total_cost + child.general_markup_amount;
+        frm.refresh_field("product");
+        
+    },
     rebate: function (frm, cdt, cdn) {
         var child = locals[cdt][cdn];
         var cost = (child.original_cost - child.rebate);
