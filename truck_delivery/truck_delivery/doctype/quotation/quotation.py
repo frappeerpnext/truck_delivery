@@ -69,6 +69,14 @@ def get_customer_quotations(start,end,customer_type=None,customer=None):
         where 
         	a.name in (select distinct quotation_number from `tabQuotation Date` where date between '{0}' and '{1}' and customer = {2}) and
     		a.customer = {2}  and Coalesce(a.customer_type,"") = Coalesce({3},"")""".format(getdate(start),getdate(end),customer or 'customer',customer_type or 'a.customer_type')
-	print(sql)
 	quotations = frappe.db.sql(sql,as_dict=1)
 	return quotations
+
+@frappe.whitelist()
+def check_has_roles(role):
+    
+	roles = frappe.get_roles()
+	if role in roles:
+		return True
+	else:
+		return False

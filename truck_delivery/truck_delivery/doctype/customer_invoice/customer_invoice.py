@@ -4,7 +4,7 @@
 from py_linq import Enumerable
 import frappe
 from frappe.model.document import Document
-import copy
+# import frappe.permissions
 from frappe.utils.data import add_to_date, getdate,format_date
 
 
@@ -26,8 +26,7 @@ class CustomerInvoice(Document):
 		
 		#calculate transaptation cost
 		self.total_transportation_cost =  Enumerable(self.products).sum(lambda x: x.total_transportation_cost or 0)
-	# def before_save(self):
-	# 	update_actual_sale_qty_to_quotation_product(self)
+		
 	def before_submit(self):
 		for d in self.products:
 			d.total_amount = (d.quantity or 1) * (d.price or 0)
@@ -73,7 +72,7 @@ class CustomerInvoice(Document):
   						current_order = Coalesce((SELECT SUM(total_quantity) from `tabCustomer Invoice` where posting_date between '{3}' and '{4}' and customer = '{0}'),0) 
              		where name = '{0}'""".format(self.customer,last_start_date,last_end_date,current_start_date,current_end_date)
 		frappe.db.sql(sql)
-		
+		frappe.enqueue('truck_delivery.truck_delivery.doctype.customer_invoice.customer_invoice.update_actual_sale_qty_to_quotation_product',self=self)
 
 	def on_cancel(self):
 	
@@ -140,15 +139,15 @@ def calculate_product_cost(self,row):
 		else:
 			return 0
 
-# def update_actual_sale_qty_to_quotation_product(self):
-# 	if self.quotation:
-# 		sql = """
-#   				Update `tabCustomer Quotation Product` a
-# 				INNER JOIN 	`tabCustomer Invoice` b ON a.parent = b.name
-#       			INNER JOIN `tabCustomer Invoice Product` c ON  a.product = c.product_code and b.posting_date between a.start_date and a.end_rate 
-# 				SET 
-#     				a.actual_quantity = c.quantity
-# 				WHERE a.parent = '{}'
-# 			""".format(self.quotation)
-# 		frappe.throw(sql)
-# 		frappe.db.sql(sql)
+def update_actual_sale_qty_to_quotation_product(self):
+	if self.quotation:
+		sql = """
+  				update  `tabCustomer Quotation Product` a 
+				INNER JOIN `tabQuotation` b ON b.name = a.parent
+				INNER JOIN `tabCustomer Invoice` c ON c.quotation = b.name  
+				INNER Join `tabCustomer Invoice Product` d ON c.name = d.parent and a.product=d.product_code
+				set a.actual_quantity = d.quantity
+				WHERE c.name = '{}' and c.posting_date between a.start_date and a.end_rate
+			""".format(self.name)
+		frappe.db.sql(sql)
+  
