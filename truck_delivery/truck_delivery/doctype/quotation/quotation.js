@@ -16,11 +16,14 @@ frappe.ui.form.on("Quotation", {
         }
         if (frm.is_new()) {
             let data = localStorage.getItem('quotation-param')
-            data = JSON.parse(data)
-            frm.set_value('customer', data.customer)
-            frm.set_value('start_date', data.start)
-            frm.set_value('end_date', data.end)
-            frm.set_value('quotation_date', frappe.datetime.nowdate())
+            if(data){
+                data = JSON.parse(data)
+                frm.set_value('customer', data.customer)
+                frm.set_value('start_date', data.start)
+                frm.set_value('end_date', data.end)
+                frm.set_value('quotation_date', frappe.datetime.nowdate())  
+            }
+            
         }
 
 

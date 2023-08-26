@@ -26,7 +26,8 @@ class CustomerInvoice(Document):
 		
 		#calculate transaptation cost
 		self.total_transportation_cost =  Enumerable(self.products).sum(lambda x: x.total_transportation_cost or 0)
-
+	# def before_save(self):
+	# 	update_actual_sale_qty_to_quotation_product(self)
 	def before_submit(self):
 		for d in self.products:
 			d.total_amount = (d.quantity or 1) * (d.price or 0)
@@ -72,6 +73,7 @@ class CustomerInvoice(Document):
   						current_order = Coalesce((SELECT SUM(total_quantity) from `tabCustomer Invoice` where posting_date between '{3}' and '{4}' and customer = '{0}'),0) 
              		where name = '{0}'""".format(self.customer,last_start_date,last_end_date,current_start_date,current_end_date)
 		frappe.db.sql(sql)
+		
 
 	def on_cancel(self):
 	
@@ -137,4 +139,16 @@ def calculate_product_cost(self,row):
 			return data[0]["cost"]
 		else:
 			return 0
-	
+
+# def update_actual_sale_qty_to_quotation_product(self):
+# 	if self.quotation:
+# 		sql = """
+#   				Update `tabCustomer Quotation Product` a
+# 				INNER JOIN 	`tabCustomer Invoice` b ON a.parent = b.name
+#       			INNER JOIN `tabCustomer Invoice Product` c ON  a.product = c.product_code and b.posting_date between a.start_date and a.end_rate 
+# 				SET 
+#     				a.actual_quantity = c.quantity
+# 				WHERE a.parent = '{}'
+# 			""".format(self.quotation)
+# 		frappe.throw(sql)
+# 		frappe.db.sql(sql)

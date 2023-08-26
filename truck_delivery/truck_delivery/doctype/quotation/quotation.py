@@ -7,16 +7,20 @@ from frappe.model.document import Document
 
 class Quotation(Document):
 	def validate(self):
-		self.total_qty = sum(c.quantity for c in self.product)
-		self.total_additional_cost = sum(c.additional_cost for c in self.product)
-		self.total_cost = sum(c.total_cost for c in self.product)
-		self.cost = sum(c.cost for c in self.product)
-		self.total_selling_price = sum(c.selling_price for c in self.product)
 		for p in self.product:
+			p.total_cost = (p.cost or 0 + p.additional_cost or 0 + p.additional_cost_2 or 0 + p.additional_cost_3 or 0) * p.quantity;
+			p.selling_price = p.total_cost + p.markup_amount;
+			p.general_price = (p.total_cost or 0) + (p.general_markup_amount or 0);
+			p.total_additional_cost=(p.additional_cost + p.additional_cost_2 + p.additional_cost_3)
 			if p.is_free == 0:
 				p.selling_price = p.markup_amount + p.total_cost
 			else:
 				p.selling_price = 0
+		self.total_qty = sum(c.quantity for c in self.product)
+		self.total_additional_cost = sum(c.additional_cost for c in self.product)
+		self.total_cost = sum(c.total_cost for c in self.product)
+		self.cost = sum(c.cost for c in self.product)
+		self.total_selling_price = sum((c.selling_price or 0) for c in self.product)
 		total_cost_quotation = sum(c.total_cost_quotation for c in self.product) or 0
 		total_selling_quotation_price = sum(c.total_selling_quotation_price for c in self.product) or 0
 		if total_cost_quotation> total_selling_quotation_price:
@@ -63,7 +67,8 @@ def get_customer_quotations(start,end,customer_type=None,customer=None):
         from `tabQuotation` a
         inner join `tabCustomer` b on a.customer = b.name
         where 
-        	a.name in (select distinct quotation_number from `tabQuotation Date` where date between '{0}' and '{1}' and customer = {2} and customer_type = {3}) and
-    		a.customer = {2}  and a.customer_type = a.{3}""".format(getdate(start),getdate(end),customer or 'customer',customer_type or 'customer_type')
+        	a.name in (select distinct quotation_number from `tabQuotation Date` where date between '{0}' and '{1}' and customer = {2}) and
+    		a.customer = {2}  and a.customer_type = {3}""".format(getdate(start),getdate(end),customer or 'customer',customer_type or 'a.customer_type')
+	print(sql)
 	quotations = frappe.db.sql(sql,as_dict=1)
 	return quotations
