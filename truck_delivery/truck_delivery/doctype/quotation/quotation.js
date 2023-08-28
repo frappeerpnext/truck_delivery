@@ -156,6 +156,7 @@ function calculate_selling_price(frm, cdt, cdn) {
     child.total_cost_quotation=total_selling_cost;
     child.total_selling_quotation_price=total_selling_quotation_price;
     child.selling_price=selling_price;
+    child.selling_price_include_rebate=selling_price +child.rebate;
     frm.refresh_field("product");
 }
 function calculate_markup_percent(frm, cdt, cdn) {

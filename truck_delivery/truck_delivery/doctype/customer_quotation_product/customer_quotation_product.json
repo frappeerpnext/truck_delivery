@@ -8,6 +8,7 @@
  "field_order": [
   "product",
   "product_name",
+  "payment_term",
   "is_free",
   "unit",
   "column_break_3",
@@ -27,6 +28,9 @@
   "markup_amount",
   "markup_percent",
   "selling_price",
+  "markup_amount_include_rebate",
+  "markup_include_rebate_percentage",
+  "selling_price_include_rebate",
   "general_markup_amount",
   "general_markup_percent",
   "general_price",
@@ -76,7 +80,7 @@
   {
    "fieldname": "markup_percent",
    "fieldtype": "Percent",
-   "label": "Markup Percent",
+   "label": "M%",
    "read_only": 1,
    "reqd": 1
   },
@@ -84,14 +88,14 @@
    "fieldname": "markup_amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Markup Amount",
+   "label": "MAT-R",
    "reqd": 1
   },
   {
    "fieldname": "selling_price",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Selling Price",
+   "label": "SELLING PRICE(-R)",
    "reqd": 1
   },
   {
@@ -204,20 +208,42 @@
   {
    "fieldname": "general_markup_amount",
    "fieldtype": "Currency",
-   "label": "General Markup Amount",
+   "label": "GMAT",
    "reqd": 1
   },
   {
    "fieldname": "general_markup_percent",
    "fieldtype": "Float",
-   "label": "General Markup Percent",
+   "label": "GM%",
    "read_only": 1
+  },
+  {
+   "fieldname": "selling_price_include_rebate",
+   "fieldtype": "Currency",
+   "label": "SELLING PRICE(+R)"
+  },
+  {
+   "fieldname": "markup_amount_include_rebate",
+   "fieldtype": "Currency",
+   "label": "MAT+R"
+  },
+  {
+   "fieldname": "payment_term",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Payment Term",
+   "options": "Payment Term"
+  },
+  {
+   "fieldname": "markup_include_rebate_percentage",
+   "fieldtype": "Float",
+   "label": "M%"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-08-26 15:08:26.827929",
+ "modified": "2023-08-28 08:44:21.752482",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Quotation Product",
