@@ -10,7 +10,6 @@
  "engine": "InnoDB",
  "field_order": [
   "request_for_quotation",
-  "quotation",
   "purchase_order",
   "naming_series",
   "vendor",
@@ -29,6 +28,7 @@
   "customer",
   "customer_name",
   "customer_phone_number",
+  "quotation",
   "column_break_19",
   "customer_province",
   "customer_district",
@@ -286,7 +286,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2023-08-26 17:07:46.868647",
+ "modified": "2023-08-28 11:19:35.115266",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Invoice",

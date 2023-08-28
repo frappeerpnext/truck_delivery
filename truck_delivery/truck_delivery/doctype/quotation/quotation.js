@@ -38,18 +38,9 @@ frappe.ui.form.on("Quotation", {
 frappe.ui.form.on('Customer Quotation Product', {
     quantity: function (frm, cdt, cdn) {
         calculate_cost(frm, cdt, cdn)
-        calculate_mark_up_amount(frm, cdt, cdn)
         calculate_selling_price(frm, cdt, cdn)
         calculate_markup_percent(frm, cdt, cdn)
         frm.refresh_field("product");
-    },
-    cost: function (frm, cdt, cdn) {
-        calculate_cost(frm, cdt, cdn);
-        calculate_mark_up_amount(frm, cdt, cdn)
-        calculate_selling_price(frm, cdt, cdn)
-        calculate_markup_percent(frm, cdt, cdn)
-        frm.refresh_field("product");
-
     },
     original_cost: function (frm, cdt, cdn) {
         var child = locals[cdt][cdn];
@@ -62,28 +53,35 @@ frappe.ui.form.on('Customer Quotation Product', {
         child.markup_percent=markup_percent;
         child.total_additional_cost=child.additional_cost + child.additional_cost_2 + child.additional_cost_3;
         calculate_selling_price(frm, cdt, cdn)
+        child.selling_price_include_rebate = child.total_cost + child.rebate + child.markup_amount_include_rebate
+        child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
     },
     additional_cost: function (frm, cdt, cdn) {
         calculate_cost(frm, cdt, cdn);
-        calculate_mark_up_amount(frm, cdt, cdn)
         calculate_selling_price(frm, cdt, cdn)
         calculate_markup_percent(frm, cdt, cdn)
+        var child = locals[cdt][cdn];
+        child.selling_price_include_rebate = child.total_cost + child.rebate + child.markup_amount_include_rebate
+        child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
     },
     additional_cost_2: function (frm, cdt, cdn) {
         calculate_cost(frm, cdt, cdn);
-        calculate_mark_up_amount(frm, cdt, cdn)
         calculate_selling_price(frm, cdt, cdn)
         calculate_markup_percent(frm, cdt, cdn)
-        
+        var child = locals[cdt][cdn];
+        child.selling_price_include_rebate = child.total_cost + child.rebate + child.markup_amount_include_rebate
+        child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
     },
     additional_cost_3: function (frm, cdt, cdn) {
         calculate_cost(frm, cdt, cdn);
-        calculate_mark_up_amount(frm, cdt, cdn)
         calculate_selling_price(frm, cdt, cdn)
         calculate_markup_percent(frm, cdt, cdn)
+        var child = locals[cdt][cdn];
+        child.selling_price_include_rebate = child.total_cost + child.rebate + child.markup_amount_include_rebate
+        child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
     },
 
@@ -103,6 +101,11 @@ frappe.ui.form.on('Customer Quotation Product', {
         var child = locals[cdt][cdn];
         var cost = (child.original_cost - child.rebate);
         child.cost=cost;
+        calculate_cost(frm, cdt, cdn)
+        calculate_selling_price(frm, cdt, cdn)
+        child.selling_price_include_rebate = child.total_cost + child.rebate + child.markup_amount_include_rebate
+        child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
+        calculate_markup_percent(frm, cdt, cdn)
         frm.refresh_field("product");
     },
 
@@ -122,6 +125,12 @@ frappe.ui.form.on('Customer Quotation Product', {
         child.total_selling_quotation_price=total_selling_quotation_price;
         frm.refresh_field("product");
     },
+    markup_amount_include_rebate:function(frm, cdt, cdn){
+        var child = locals[cdt][cdn];
+        child.selling_price_include_rebate = child.total_cost + child.rebate + child.markup_amount_include_rebate
+        child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
+        frm.refresh_field("product");
+    }
 
 });
 
@@ -137,35 +146,27 @@ function calculate_cost(frm, cdt, cdn) {
     child.total_additional_cost=(child.additional_cost + child.additional_cost_2 + child.additional_cost_3)
     frm.refresh_field("product");
 }
-function calculate_mark_up_amount(frm, cdt, cdn) {
-    var child = locals[cdt][cdn];
-    let markup_amount = child.total_cost * child.markup_percent / 100;
-    var total_selling_cost = child.qty_quotation * child.total_cost;
-    var total_selling_quotation_price = child.qty_quotation * child.selling_price;
-    child.total_cost_quotation=total_selling_cost;
-    child.total_selling_quotation_price=total_selling_quotation_price;
-    child.markup_amount=markup_amount;
-    frm.refresh_field("product");
-}
-
 function calculate_selling_price(frm, cdt, cdn) {
     var child = locals[cdt][cdn];
     let selling_price = child.total_cost + child.markup_amount;
+    let selling_price_include_rebate = child.total_cost + child.rebate + child.markup_amount;
     var total_selling_cost = child.qty_quotation * child.total_cost;
     var total_selling_quotation_price = child.qty_quotation * child.selling_price;
     child.total_cost_quotation=total_selling_cost;
     child.total_selling_quotation_price=total_selling_quotation_price;
     child.selling_price=selling_price;
-    child.selling_price_include_rebate=selling_price +child.rebate;
+    child.selling_price_include_rebate=selling_price_include_rebate;
     frm.refresh_field("product");
 }
 function calculate_markup_percent(frm, cdt, cdn) {
     var child = locals[cdt][cdn];
     let markup_percent = (child.markup_amount * 100) / child.total_cost;
+    let markup_percent_include_rebate = (child.markup_amount * 100) / child.total_cost;
     var total_selling_cost = child.qty_quotation * child.total_cost;
     var total_selling_quotation_price = child.qty_quotation * child.selling_price;
     child.total_cost_quotation=total_selling_cost;
     child.total_selling_quotation_price=total_selling_quotation_price;
     child.markup_percent=markup_percent;
+    child.markup_percent_include_rebate=markup_percent_include_rebate;
     frm.refresh_field("product");
 }

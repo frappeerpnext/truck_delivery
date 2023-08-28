@@ -11,17 +11,8 @@ frappe.ui.form.on('Customer Invoice', {
             frm.dashboard.add_indicator(__("Balance: {0}",[format_currency(frm.doc.balance)]) ,"red");
         
         }
-        frm.set_query('quotation', function() {
-            return {
-                'filters': {
-                    "docstatus": 1
-                }
-            };
-        });	
-			 
-			
-		 
     },
+    
     onload: function (frm) {
         setTimeout(function () {
            
@@ -56,7 +47,18 @@ frappe.ui.form.on('Customer Invoice', {
         }, 1000)
 
  
-    }
+    },
+    customer:function(frm){
+        frm.set_query('quotation', function() {
+            return {
+                'filters': {
+                    "docstatus": 1,
+                    "customer":frm.doc.customer,
+                    
+                }
+            };
+        });
+    },
 });
 
 
