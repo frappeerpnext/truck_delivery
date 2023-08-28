@@ -115,6 +115,7 @@ frappe.ui.form.on('Customer Quotation Product', {
         var total_selling_quotation_price = child.qty_quotation * child.selling_price;
         child.total_cost_quotation=total_selling_cost;
         child.total_selling_quotation_price=total_selling_quotation_price;
+        child.profit_and_loss = child.total_selling_quotation_price-child.total_cost_quotation;
         frm.refresh_field("product");
     },
     total_cost_quotation: function (frm, cdt, cdn) {
@@ -130,7 +131,8 @@ frappe.ui.form.on('Customer Quotation Product', {
         child.selling_price_include_rebate = child.total_cost + child.markup_amount_include_rebate
         child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
-    }
+    },
+
 
 });
 
