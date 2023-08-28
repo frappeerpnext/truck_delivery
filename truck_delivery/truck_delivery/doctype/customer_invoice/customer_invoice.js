@@ -54,7 +54,7 @@ frappe.ui.form.on('Customer Invoice', {
                 'filters': {
                     "docstatus": 1,
                     "customer":frm.doc.customer,
-                    
+
                 }
             };
         });
@@ -70,9 +70,7 @@ frappe.ui.form.on('Customer Invoice Product', {
    quantity:function (frm,cdt, cdn) {
      UpdateProductAmount(frm,locals[cdt][cdn])
    }, 
-
  })
- 
 
 function UpdateProductAmount(frm,doc){
         doc.total_amount  =( doc.quantity ||  0 ) * (doc.price || 0 );

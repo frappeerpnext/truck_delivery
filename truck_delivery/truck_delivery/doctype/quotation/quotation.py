@@ -12,6 +12,7 @@ class Quotation(Document):
 			p.selling_price = p.total_cost + p.markup_amount;
 			p.general_price = (p.total_cost or 0) + (p.general_markup_amount or 0);
 			p.total_additional_cost=(p.additional_cost + p.additional_cost_2 + p.additional_cost_3)
+			p.profit_and_loss = p.total_selling_quotation_price-p.total_cost_quotation
 			if p.is_free == 0:
 				p.selling_price = p.markup_amount + p.total_cost
 			else:
