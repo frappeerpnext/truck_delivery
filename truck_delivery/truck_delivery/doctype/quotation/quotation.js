@@ -53,7 +53,7 @@ frappe.ui.form.on('Customer Quotation Product', {
         child.markup_percent=markup_percent;
         child.total_additional_cost=child.additional_cost + child.additional_cost_2 + child.additional_cost_3;
         calculate_selling_price(frm, cdt, cdn)
-        child.selling_price_include_rebate = child.total_cost + child.markup_amount_include_rebate
+        child.selling_price_include_rebate = child.original_cost + child.markup_amount_include_rebate + child.total_additional_cost
         child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
     },
@@ -62,7 +62,7 @@ frappe.ui.form.on('Customer Quotation Product', {
         calculate_selling_price(frm, cdt, cdn)
         calculate_markup_percent(frm, cdt, cdn)
         var child = locals[cdt][cdn];
-        child.selling_price_include_rebate = child.total_cost + child.markup_amount_include_rebate
+        child.selling_price_include_rebate = child.original_cost + child.markup_amount_include_rebate + child.total_additional_cost
         child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
     },
@@ -71,7 +71,7 @@ frappe.ui.form.on('Customer Quotation Product', {
         calculate_selling_price(frm, cdt, cdn)
         calculate_markup_percent(frm, cdt, cdn)
         var child = locals[cdt][cdn];
-        child.selling_price_include_rebate = child.total_cost  + child.markup_amount_include_rebate
+        child.selling_price_include_rebate = child.original_cost  + child.markup_amount_include_rebate + child.total_additional_cost
         child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
     },
@@ -80,7 +80,7 @@ frappe.ui.form.on('Customer Quotation Product', {
         calculate_selling_price(frm, cdt, cdn)
         calculate_markup_percent(frm, cdt, cdn)
         var child = locals[cdt][cdn];
-        child.selling_price_include_rebate = child.total_cost + child.rebate + child.markup_amount_include_rebate
+        child.selling_price_include_rebate = child.original_cost + child.rebate + child.markup_amount_include_rebate + child.total_additional_cost
         child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
     },
@@ -103,7 +103,7 @@ frappe.ui.form.on('Customer Quotation Product', {
         child.cost=cost;
         calculate_cost(frm, cdt, cdn)
         calculate_selling_price(frm, cdt, cdn)
-        child.selling_price_include_rebate = child.total_cost  + child.markup_amount_include_rebate
+        child.selling_price_include_rebate = child.original_cost  + child.markup_amount_include_rebate + child.total_additional_cost
         child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         calculate_markup_percent(frm, cdt, cdn)
         frm.refresh_field("product");
@@ -128,7 +128,7 @@ frappe.ui.form.on('Customer Quotation Product', {
     },
     markup_amount_include_rebate:function(frm, cdt, cdn){
         var child = locals[cdt][cdn];
-        child.selling_price_include_rebate = child.total_cost + child.markup_amount_include_rebate
+        child.selling_price_include_rebate = child.original_cost + child.markup_amount_include_rebate + child.total_additional_cost
         child.markup_include_rebate_percentage = (child.markup_amount * 100) / (child.total_cost+child.rebate)
         frm.refresh_field("product");
     },
@@ -151,7 +151,7 @@ function calculate_cost(frm, cdt, cdn) {
 function calculate_selling_price(frm, cdt, cdn) {
     var child = locals[cdt][cdn];
     let selling_price = child.total_cost + child.markup_amount;
-    let selling_price_include_rebate = child.total_cost + child.markup_amount_include_rebate;
+    let selling_price_include_rebate = child.original_cost + child.markup_amount_include_rebate + child.total_additional_cost;
     var total_selling_cost = child.qty_quotation * child.total_cost;
     var total_selling_quotation_price = child.qty_quotation * child.selling_price;
     child.total_cost_quotation=total_selling_cost;
