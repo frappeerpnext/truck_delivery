@@ -11,28 +11,34 @@ class Quotation(Document):
 			p.total_additional_cost=(p.additional_cost + p.additional_cost_2 + p.additional_cost_3)
 			p.total_cost = (p.cost + p.total_additional_cost) * p.quantity;
 			p.general_price = (p.total_cost or 0) + (p.general_markup_amount or 0);
-			p.profit_and_loss = p.total_selling_quotation_price-p.total_cost_quotation
+			
 			p.selling_price_include_rebate = p.markup_amount_include_rebate + p.original_cost + p.additional_cost
 			p.total_original_cost = p.original_cost + p.total_additional_cost
 			p.markup_include_rebate_percentage = (p.markup_amount_include_rebate * 100) / p.total_original_cost
 			p.markup_percent = (p.markup_amount * 100) / p.total_cost;
+			item_total_selling_quotation_price = 0
+			
 			if p.is_free == 0:
 				p.selling_price = p.total_cost + p.markup_amount
+				item_total_selling_quotation_price = p.qty_quotation * p.selling_price
+				p.total_selling_quotation_price=item_total_selling_quotation_price;
+				p.profit_and_loss = p.total_selling_quotation_price-p.total_cost_quotation;
 			else:
+				p.qty_quotation = p.quantity
+				p.total_selling_quotation_price = 0
 				p.selling_price = 0
+				p.total_cost_quotation = p.quantity * p.total_cost
+				p.profit_and_loss = p.total_selling_quotation_price-p.total_cost_quotation;
+			
 		self.total_qty = sum(c.quantity for c in self.product)
 		self.total_additional_cost = sum(c.additional_cost for c in self.product)
 		self.total_cost = sum(c.total_cost for c in self.product)
 		self.cost = sum(c.cost for c in self.product)
 		self.total_selling_price = sum((c.selling_price or 0) for c in self.product)
-		total_cost_quotation = sum(c.total_cost_quotation for c in self.product) or 0
-		total_selling_quotation_price = sum(c.total_selling_quotation_price for c in self.product) or 0
-		if total_cost_quotation> total_selling_quotation_price:
-			self.profit=0
-			self.loss = total_cost_quotation - total_selling_quotation_price
-		else:
-			self.loss=0
-			self.profit = total_selling_quotation_price - total_cost_quotation
+		self.profit_and_loss = sum(c.profit_and_loss for c in self.product) or 0
+		self.total_revenue = sum(c.total_selling_quotation_price for c in self.product) or 0
+		
+		
    
 	def after_insert(self):
 		start_date = getdate(self.start_date)

@@ -27,8 +27,10 @@
   "total_cost",
   "column_break_14",
   "total_selling_price",
+  "total_revenue",
   "loss",
   "profit",
+  "profit_and_loss",
   "section_break_17",
   "amended_from",
   "section_break_22",
@@ -88,6 +90,7 @@
   {
    "fieldname": "total_qty",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "TOTAL QTY",
    "permlevel": 1,
    "read_only": 1
@@ -102,6 +105,7 @@
   {
    "fieldname": "total_additional_cost",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "TOTAL ADD COST",
    "permlevel": 1
   },
@@ -135,6 +139,7 @@
   {
    "fieldname": "profit",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "PROFIT"
   },
   {
@@ -151,12 +156,14 @@
   {
    "fieldname": "total_selling_price",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "TOTAL SELLING PRICE",
    "read_only": 1
   },
   {
    "fieldname": "loss",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "LOSS"
   },
   {
@@ -201,12 +208,23 @@
    "fieldtype": "Float",
    "hidden": 1,
    "label": "Current Order"
+  },
+  {
+   "fieldname": "profit_and_loss",
+   "fieldtype": "Currency",
+   "label": "PROFIT/LOSS"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_revenue",
+   "fieldtype": "Currency",
+   "label": "TOTAL REVENUE"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-29 12:07:37.209436",
+ "modified": "2023-08-29 14:40:59.719094",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Quotation",
