@@ -224,6 +224,7 @@
   },
   {
    "bold": 1,
+   "default": "0",
    "fieldname": "selling_price_include_rebate",
    "fieldtype": "Currency",
    "label": "SELLING PRICE(+R)"
@@ -262,7 +263,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-08-29 15:32:29.563814",
+ "modified": "2023-08-29 17:01:36.179365",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Quotation Product",
