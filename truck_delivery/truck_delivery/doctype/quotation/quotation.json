@@ -23,10 +23,10 @@
   "summary_section",
   "total_qty",
   "total_additional_cost",
-  "cost",
   "total_cost",
   "column_break_14",
   "total_selling_price",
+  "cost",
   "total_revenue",
   "loss",
   "profit",
@@ -98,6 +98,7 @@
   {
    "fieldname": "total_cost",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "TOTAL ADD +  COST",
    "permlevel": 1,
    "read_only": 1
@@ -224,7 +225,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-29 14:40:59.719094",
+ "modified": "2023-08-29 14:50:35.080413",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Quotation",
