@@ -41,9 +41,7 @@
   "total_selling_quotation_price",
   "profit_and_loss",
   "column_break_26",
-  "actual_quantity",
-  "section_break_37",
-  "save"
+  "actual_quantity"
  ],
  "fields": [
   {
@@ -259,23 +257,12 @@
    "fieldname": "total_original_cost",
    "fieldtype": "Currency",
    "label": "TOTAL ORGINAL COST"
-  },
-  {
-   "fieldname": "section_break_37",
-   "fieldtype": "Section Break"
-  },
-  {
-   "depends_on": "eval:!doc.docstatus!=2",
-   "fieldname": "save",
-   "fieldtype": "Button",
-   "label": "Save",
-   "width": "200"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-08-29 12:44:42.534681",
+ "modified": "2023-08-29 15:32:29.563814",
  "modified_by": "Administrator",
  "module": "Truck delivery",
  "name": "Customer Quotation Product",

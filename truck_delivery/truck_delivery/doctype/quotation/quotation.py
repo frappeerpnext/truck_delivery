@@ -17,7 +17,6 @@ class Quotation(Document):
 			p.markup_include_rebate_percentage = (p.markup_amount_include_rebate * 100) / p.total_original_cost
 			p.markup_percent = (p.markup_amount * 100) / p.total_cost;
 			item_total_selling_quotation_price = 0
-			
 			if p.is_free == 0:
 				p.selling_price = p.total_cost + p.markup_amount
 				item_total_selling_quotation_price = p.qty_quotation * p.selling_price
@@ -33,7 +32,7 @@ class Quotation(Document):
 		self.total_qty = sum(c.quantity for c in self.product)
 		self.total_additional_cost = sum(c.additional_cost for c in self.product)
 		self.total_cost = sum(c.total_cost for c in self.product)
-		self.cost = sum(c.cost for c in self.product)
+		self.cost = sum(c.total_cost_quotation for c in self.product)
 		self.total_selling_price = sum((c.selling_price or 0) for c in self.product)
 		self.profit_and_loss = sum(c.profit_and_loss for c in self.product) or 0
 		self.total_revenue = sum(c.total_selling_quotation_price for c in self.product) or 0
