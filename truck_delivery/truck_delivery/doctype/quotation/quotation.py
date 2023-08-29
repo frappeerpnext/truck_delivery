@@ -13,8 +13,10 @@ class Quotation(Document):
 			p.selling_price = p.total_cost + p.markup_amount;
 			p.general_price = (p.total_cost or 0) + (p.general_markup_amount or 0);
 			p.profit_and_loss = p.total_selling_quotation_price-p.total_cost_quotation
+			p.selling_price_include_rebate = p.markup_amount_include_rebate + p.total_cost
+			
 			if p.is_free == 0:
-				p.selling_price = p.markup_amount + p.total_cost
+				p.selling_price = p.total_cost + p.markup_amount
 			else:
 				p.selling_price = 0
 		self.total_qty = sum(c.quantity for c in self.product)
