@@ -110,15 +110,18 @@ function resourceColumn() {
   return [
     {
       labelText: 'Customer',
-      headerContent: 'Customer'
+      headerContent: 'Customer',
+      width:'400px'
     },
     {
       field: 'province',
       headerContent: 'Province',
+      width:'100px'
     },
     {
       field: 'customer_type',
       headerContent: 'Type',
+      width:'100px'
     },
   ]
 
@@ -146,7 +149,7 @@ const calendarOptions = reactive({
   eventResizableFromStart: true,
   refetchResourcesOnNavigate: true,
   nowIndicator: true,
-  resourceAreaWidth: "400px",
+  resourceAreaWidth: "600px",
   headerToolbar: false,
   initialDate: fullcalendarInitialDate.value,
   dateIncrement: { days: 3 },
