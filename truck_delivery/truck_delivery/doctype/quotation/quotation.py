@@ -9,7 +9,7 @@ class Quotation(Document):
 	def validate(self):
 		for p in self.product:
 			p.total_additional_cost=(p.additional_cost + p.additional_cost_2 + p.additional_cost_3)
-			p.total_cost = (p.cost + p.total_additional_cost) * p.quantity;
+			p.total_cost = (p.cost + p.total_additional_cost)
 			p.general_price = (p.total_cost or 0) + (p.general_markup_amount or 0);
 			
 			p.selling_price_include_rebate = p.markup_amount_include_rebate + p.original_cost + p.additional_cost
