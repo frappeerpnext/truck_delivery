@@ -44,7 +44,7 @@ frappe.ui.form.on('Customer Quotation Product', {
     original_cost: function (frm, cdt, cdn) {
         var child = locals[cdt][cdn];
         child.cost=child.original_cost - child.rebate;
-        var total_cost = (child.cost + child.additional_cost + child.additional_cost_2 + child.additional_cost_3);
+        var total_cost = (child.cost + child.additional_cost + child.additional_cost_2 + child.additional_cost_3) * child.quantity;
         child.total_cost=total_cost;
         let selling_price = child.total_cost + child.markup_amount;
         child.selling_price=selling_price;
@@ -125,7 +125,7 @@ frappe.ui.form.on('Customer Quotation Product', {
 
 function calculate_cost(frm, cdt, cdn) {
     var child = locals[cdt][cdn];
-    var total_cost = (child.cost + child.additional_cost + child.additional_cost_2 + child.additional_cost_3);
+    var total_cost = (child.cost + child.additional_cost + child.additional_cost_2 + child.additional_cost_3) * child.quantity;
     child.cost = child.original_cost - child.rebate;
     var total_selling_cost = child.qty_quotation * child.total_cost;
     var total_selling_quotation_price = child.qty_quotation * child.selling_price;
