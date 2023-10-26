@@ -113,7 +113,13 @@ app_license = "MIT"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
+    "cron": {
+		"* */1 * * *": [
+			"truck_delivery.truck_delivery.doctype.customer_invoice.customer_invoice.update_customer_order",
+		],
+	},
+    
 #	"all": [
 #		"truck_delivery.tasks.all"
 #	],
@@ -129,7 +135,7 @@ app_license = "MIT"
 #	"monthly": [
 #		"truck_delivery.tasks.monthly"
 #	],
-# }
+}
 
 # Testing
 # -------

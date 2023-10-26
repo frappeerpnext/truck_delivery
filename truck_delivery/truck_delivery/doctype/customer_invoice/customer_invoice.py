@@ -150,4 +150,20 @@ def update_actual_sale_qty_to_quotation_product(self):
 				WHERE c.name = '{}' and c.posting_date between a.start_date and a.end_rate
 			""".format(self.name)
 		frappe.db.sql(sql)
+
+
+@frappe.whitelist()
+def update_customer_order():
+	sql = """
+		UPDATE `tabCustomer` AS c
+		JOIN (
+			SELECT customer, SUM(total_quantity) AS total_quantity
+			FROM `tabCustomer Invoice`
+			WHERE posting_date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW())
+			GROUP BY customer
+		) AS so ON c.name = so.customer
+		SET c.current_order = so.total_quantity;
+	"""
+	frappe.db.sql(sql)
+
   
