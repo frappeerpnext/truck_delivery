@@ -115,7 +115,7 @@ app_license = "MIT"
 
 scheduler_events = {
     "cron": {
-		"* */1 * * *": [
+		"0 * * * *": [
 			"truck_delivery.truck_delivery.doctype.customer_invoice.customer_invoice.update_customer_order",
 		],
 	},
